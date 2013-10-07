@@ -1,0 +1,157 @@
+﻿body{
+	margin:0 0;
+	padding:0 0;
+	font-family:'Helvetica Neue',sans-serif;
+	background:url('../image/top.png') repeat-x right 0,url('../image/bg.png') repeat;
+}
+
+#main{
+	height:100%;
+}
+/*
+	------- Top ------
+*/
+.inner{
+	padding:18px 0 10px 0;
+}
+
+.card{
+	height:160px;
+	width:270px;
+	margin:0 auto;
+	position:relative;
+	background-size:270px 160px;
+	background-repeat:no-repeat;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	box-shadow:0 0 4px rgba(0,0,0,.7);
+}
+
+.num{
+	height:40px;
+	display:inline-block;
+	position:absolute;
+	top:100px;
+	right:25px;
+	color:#670700;	/*	卡号颜色	*/
+	font-size:0.8em;
+	text-shadow:0 1px;
+	text-align:left;
+	line-height:20px;
+}
+
+.inner p{
+	text-align:center;
+}
+
+.claim{
+	font-size:0.9em;
+	text-align:center;
+	color:#999;
+	background:url('../image/show.jpg') no-repeat 0 50%;
+	-webkit-background-size:13px 14.5px;
+	background-size:13px 14.5px;
+	padding-left: 20px;
+}
+
+/*
+	------- List 1,2------
+*/
+.list{
+	margin:0 10px 20px 10px;
+	padding:0 0;
+	background-color:#F9F9FA;
+	list-style-type:none;
+	text-align:left;
+	font-size:1.2em;
+	line-height:37px;
+	overflow: hidden;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:solid #C2C2C2;
+	border-width:1px 1px 0 1px;
+	box-shadow:0 1px 1px #f6f6f6;
+}
+
+.list a{
+	text-decoration:none;
+	line-height:37px;
+	color:#000;
+	margin:0 10px 0 40px;
+	display:block;
+	background:url('../image/arrow3.png') no-repeat right 50%;
+	-webkit-background-size:8.5px 13px;
+	background-size:8.5px 13px;
+}
+
+.list_li1{
+	border:solid #C2C2C2;
+	border-width:0 0 1px 0;
+	padding:7px 0 7px 0;
+	background:url('../image/icon_score.png') no-repeat 9px 15px;
+	-webkit-background-size: 24px 21px;
+	background-size: 24px 21px;
+}
+.list_li2{
+	border:solid #C2C2C2;
+	border-width:0 0 1px 0;
+	padding:7px 0 7px 0;
+	background:url('../image/icon_balance.png') no-repeat 9px 15px;
+	-webkit-background-size: 24px 21px;
+	background-size: 24px 21px;
+}
+.list_li3{
+	border:solid #C2C2C2;
+	border-width:0 0 1px 0;
+	padding:7px 0 7px 0;
+	background:url('../image/phone.png') no-repeat 9px 15px;
+	-webkit-background-size: 24px 21px;
+	background-size: 24px 21px;
+}
+
+/*
+	------- List ------
+*/
+.list_line{
+	border:solid #C2C2C2;
+	border-width:0 0 1px 0;
+	padding:7px 0 7px 0;
+	background:url('../image/icon_power1.png') no-repeat 9px 15px;
+	-webkit-background-size: 24px 21px;
+	background-size: 24px 21px;
+
+}
+
+.line{
+	text-decoration:none;
+	margin:0 10px 0 40px;
+	display:block;
+	cursor:pointer;
+}
+
+.list_line div{
+	padding:4px 10px 10px 10px;
+	margin:10px 0 -7px 0;
+	border:solid #C2C2C2;
+	border-width:1px 0 0 0;
+	background:#eee;
+	-webkit-background-size:40px 40px;
+	background-size:40px 40px;
+	box-shadow:inset 5px 5px 5px #d9d9d9,inset -5px -5px 5px #d9d9d9;
+}
+.linetxt{
+	font-size:0.8em;
+	font-weight:bold;
+	line-height:1em;
+	color:#666;
+}
+.lineul{
+	list-style-type:disc;
+	padding:0 15px;
+}
+.lineul li{
+	font-size:0.5em;
+	text-align:left;
+	color:#777;
+	line-height: 1.4em;
+}

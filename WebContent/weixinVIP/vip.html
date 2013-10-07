@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/vip.css" />
+<script type="text/javascript">
+var temp,arr,arrdiv,num;
+arr = document.getElementsByName('ispan');
+arrdiv = document.getElementsByName('idiv');
+num = arr.length;
+function show(temp){
+	var i,target,targetdiv,flag,tempdiv;
+	flag = 0;
+	tempdiv = temp + "d";
+	target = document.getElementById(temp);
+	targetdiv = document.getElementById(tempdiv);
+	if(targetdiv.style.display == "none")
+		flag = 1;
+	for(i=0; i<arr.length; i++){
+		arr[i].style.background = "url('image/arrow5.png') no-repeat right 50%";
+		arrdiv[i].style.display = "none";
+	}
+	if(flag == 1){
+		targetdiv.style.display = "block"
+		target.style.background = "url('image/arrow4.png') no-repeat right 50%"
+	}
+}
+</script>
+</head>
+<body>
+	<div id="main">
+		<div class="inner">
+			<div class="top">
+				<div class="card" style="background-image:url('image/ha.png');background-color:#eee;">
+					<span class="num">会员卡号<br><font style="font-size:1.5em;font-weight:bold;">1234 5678</font></span>
+				</div>
+			</div>
+			<p><span class="claim">使用时向服务员出示此卡</span></p>
+		</div>
+		<ul class="list">
+			<li class="list_li1"><a href="credit.html">积分：0&nbsp;分</a></li>
+			<li class="list_li2"><a href="balance.html">预存余额：0&nbsp;元</a></li>
+			
+			<li class="list_line">
+				<span name="ispan" class="line" id="idiv1" onclick="show(this.id)" style="background:url('image/arrow5.png') no-repeat right 50%;background-size:13px 8.5px;-webkit-background-size:13px 8.5px;">20元的优惠券</span>
+				<div name="idiv" id="idiv1d" style="display:none;">
+					<span class="linetxt">详细说明</span>
+					<ul class="lineul">
+						<li>有效期：2013-09-02至2013-12-02</li>
+						<li>使用时间：不限</li>
+						<li>最低消费限制：100</li>
+						<li>其他限制：不找零</li>
+						<li>描述：消费满100元可用，每单消费限用1张</li>
+					<ul>
+				</div>
+			</li>
+			<li class="list_line">
+				<span name="ispan" class="line" id="idiv2" onclick="show(this.id)" style="background:url('image/arrow5.png') no-repeat right 50%;background-size:13px 8.5px;-webkit-background-size:13px 8.5px;">20元的优惠券</span>
+				<div name="idiv" id="idiv2d" style="display:none;">
+					<span class="linetxt">详细说明</span>
+					<ul class="lineul">
+						<li>有效期：2013-09-02至2013-12-02</li>
+						<li>使用时间：不限</li>
+						<li>最低消费限制：100</li>
+						<li>其他限制：不找零</li>
+						<li>描述：消费满100元可用，每单消费限用1张</li>
+					</ul>
+				</div>
+			</li>
+			<li class="list_line">
+				<span name="ispan" class="line" id="idiv3" onclick="show(this.id)" style="background:url('image/arrow5.png') no-repeat right 50%;background-size:13px 8.5px;-webkit-background-size:13px 8.5px;">20元的优惠券</span>
+				<div name="idiv" id="idiv3d" style="display:none;">
+					<span class="linetxt">详细说明</span>
+					<ul class="lineul">
+						<li>有效期：2013-09-02至2013-12-02</li>
+						<li>使用时间：不限</li>
+						<li>最低消费限制：100</li>
+						<li>其他限制：不找零</li>
+						<li>描述：消费满100元可用，每单消费限用1张</li>
+					</ul>
+				</div>
+			</li>
+			<li class="list_line">
+				<span name="ispan" class="line" id="idiv4" onclick="show(this.id)" style="background:url('image/arrow5.png') no-repeat right 50%;background-size:13px 8.5px;-webkit-background-size:13px 8.5px;">20元的优惠券</span>
+				<div name="idiv" id="idiv4d" style="display:none;">
+					<span class="linetxt">详细说明</span>
+					<ul class="lineul">
+						<li>有效期：2013-09-02至2013-12-02</li>
+						<li>使用时间：不限</li>
+						<li>最低消费限制：100</li>
+						<li>其他限制：不找零</li>
+						<li>描述：消费满100元可用，每单消费限用1张</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<ul class="list">
+			<li class="list_li3"><a href="phone.html">绑定您的手机</a></li>
+		</ul>
+	</div>
+</body>
+</html>

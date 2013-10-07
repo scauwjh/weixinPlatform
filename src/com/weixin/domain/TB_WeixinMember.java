@@ -1,0 +1,88 @@
+package com.weixin.domain;
+
+import java.util.Date;
+
+public class TB_WeixinMember {
+	private Integer ID;
+	private String MemberID = "";//会员ID
+	private Date CreateTime = new Date();//创建时间
+	private String OpenID = "";//微信加密的串，微信用户的唯一标识
+	private Integer Score = 0;//积分
+	private Integer Term = 0;//最后获取积分的期数
+	private String Coupon = "";//优惠券JSON数组，含优惠券ID和获取时间
+	private String Telephone = "";//绑定的电话号码
+	private TB_Unit unit;//所属单位
+	
+	public String getTelephone() {
+		return this.Telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.Telephone = telephone;
+	}
+
+	public String getCoupon() {
+		return this.Coupon;
+	}
+
+	public void setCoupon(String coupon) {
+		this.Coupon = coupon;
+	}
+
+	public Integer getTerm() {
+		return this.Term;
+	}
+
+	public void setTerm(Integer term) {
+		this.Term = term;
+	}
+
+	public Integer getScore() {
+		return this.Score;
+	}
+
+	public void setScore(Integer score) {
+		this.Score = score;
+	}
+
+	public String getOpenID() {
+		return this.OpenID;
+	}
+
+	public void setOpenID(String openID) {
+		this.OpenID = openID;
+	}
+
+	public String getMemberID() {
+		return this.MemberID;
+	}
+
+	public void setMemberID(String memberID) {
+		this.MemberID = memberID;
+	}
+
+	public Integer getID() {
+		return this.ID;
+	}
+
+	public void setID(Integer id) {
+		this.ID = id;
+	}
+
+	public Date getCreateTime() {
+		return this.CreateTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.CreateTime = createTime;
+	}
+
+	public TB_Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(TB_Unit unit) {
+		this.unit = unit;
+	}
+	
+}

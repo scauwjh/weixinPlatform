@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 指定Hibernate映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Hibernate映射文件的根元素 -->
+<hibernate-mapping package="com.weixin.domain">
+    <class name="TB_WeixinKey" table="tb_weixinkey">
+		<!-- 使用只读缓存 -->
+	<!-- <cache usage="read-only"/>       -->  
+		<!-- 映射标识属性 -->
+		<id	name="ID" type="integer" column="ID">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="identity"/>
+		</id>
+		
+		<!-- 映射普通属性 -->				
+		<property name="KeyValue" column="KeyValue" type="string" length="10" not-null="true"/>
+		
+		<property name="Message" column="Message" type="string" length="100"/>
+		
+		<property name="UpdateTime" column="UpdateTime" type="java.util.Date" not-null="true"/>
+		
+		<many-to-one name="Unit" column="Unit" />
+    </class>
+</hibernate-mapping>

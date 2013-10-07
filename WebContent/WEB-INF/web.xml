@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Weixin</display-name>
+  <!-- servlet -->
+  <servlet>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>com.weixin.servlet.Test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CreateMenu</servlet-name>
+    <servlet-class>com.weixin.servlet.CreateMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateMenu</servlet-name>
+    <url-pattern>/createmenu</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.weixin.servlet.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>WeixinManager</servlet-name>
+    <servlet-class>com.weixin.servlet.WeixinManager</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WeixinManager</servlet-name>
+    <url-pattern>/WeixinManager</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>WeixinMessage</servlet-name>
+    <servlet-class>com.weixin.servlet.WeixinMessage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WeixinMessage</servlet-name>
+    <url-pattern>/weixinmessage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>WeixinInterface</servlet-name>
+    <servlet-class>com.weixin.servlet.WeixinInterface</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WeixinInterface</servlet-name>
+    <url-pattern>/weixininterface</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Registe</servlet-name>
+    <servlet-class>com.weixin.servlet.Registe</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Registe</servlet-name>
+    <url-pattern>/registe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Member</servlet-name>
+    <servlet-class>com.weixin.servlet.Member</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Member</servlet-name>
+    <url-pattern>/member</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Coupon</servlet-name>
+    <servlet-class>com.weixin.servlet.Coupon</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Coupon</servlet-name>
+    <url-pattern>/coupon</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Unit</servlet-name>
+    <servlet-class>com.weixin.servlet.Unit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Unit</servlet-name>
+    <url-pattern>/unit</url-pattern>
+  </servlet-mapping>
+  <!-- end servlet -->
+  
+  
+  <!-- 过滤器 -->
+  	<filter>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <filter-class>com.weixin.filter.LoginFilter</filter-class>
+  	</filter>
+  	<!-- 页面过滤 -->
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/index.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/coupon.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/sources.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/member.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/message.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/menu.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/unit.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/addcoupon.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/addmember.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/addsource.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/addmenu.jsp</url-pattern>
+  	</filter-mapping>
+  	<!-- end 页面过滤 -->
+  	
+  	<!-- servlet 过滤 -->
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/createmenu</url-pattern>
+  	</filter-mapping>
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/weixinmessage</url-pattern>
+  	</filter-mapping>
+  <!-- end 过滤器 -->
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

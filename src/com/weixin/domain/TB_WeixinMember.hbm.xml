@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 指定Hibernate映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Hibernate映射文件的根元素 -->
+<hibernate-mapping package="com.weixin.domain">
+    <class name="TB_WeixinMember" table="tb_weixinmember">
+		<!-- 使用只读缓存 -->
+	<!-- <cache usage="read-only"/>       -->  
+		<!-- 映射标识属性 -->
+		<id	name="ID" type="integer" column="ID">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="identity"/>
+		</id>
+		
+		<!-- 映射普通属性 -->				
+		<property name="MemberID" column="MemberID" type="string" length="20" not-null="true"/>
+		
+		<property name="CreateTime" column="CreateTime" type="java.util.Date" not-null="true"/>
+		
+		<property name="OpenID" column="OpenID" type="string" length="30" not-null="true"/>
+		
+		<property name="Score" column="Score" type="integer" not-null="true"/>
+		
+		<property name="Term" column="Term" type="integer" not-null="true"/>
+		
+		<property name="Telephone" column="Telephone" type="string" length="15" not-null="true"/>
+		
+		<property name="Coupon" column="Coupon" type="string" length="1000" not-null="true"/>
+		
+		<many-to-one name="Unit" column="Unit" />
+    </class>
+</hibernate-mapping>
