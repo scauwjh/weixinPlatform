@@ -60,9 +60,23 @@
  	margin-top:5px;
  	float:left;
  	//border:1px solid #ccc;
- 	width:550px;
+ 	width:570px;
  	height:300px;
  	font-size:15px;
  	color:#333;
  }
+ 
+ .button_class{
+	display: inline-block;
+	background-color:#5ba10e;
+	background: -webkit-gradient(linear,left top,left bottom,from(#6fb420),to(#51930d));
+	color:#ffffff;
+	border:1px solid #638467;
+	-webkit-border-radius: 5px;
+	text-align: center;
+	text-decoration:none;
+}
+.clear{
+	clear:both;
+}
  

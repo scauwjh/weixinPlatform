@@ -137,6 +137,11 @@
   	
   	<filter-mapping>
   	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/unit_id.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
   	    <url-pattern>/addcoupon.jsp</url-pattern>
   	</filter-mapping>
   	

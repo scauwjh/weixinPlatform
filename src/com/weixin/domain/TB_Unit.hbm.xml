@@ -17,7 +17,7 @@
 		<!-- Ó³ÉäÆÕÍ¨ÊôÐÔ -->
 		<property name="UnitName" column="UnitName" type="string" length="20" not-null="true"/>
 				
-		<property name="Appid" column="Appid" type="string" length="20" not-null="true"/>
+		<property name="Appid" column="Appid" type="string" length="18" not-null="true"/>
 		
 		<property name="Secret" column="Secret" type="string" length="35" not-null="true"/>
 		
