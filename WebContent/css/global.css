@@ -65,18 +65,4 @@
  	font-size:15px;
  	color:#333;
  }
- #memo{
- 	float:left;
- 	width:355px;
- 	height:260px;
- 	//border:1px solid #ccc;
- 	margin:0px 15px;
- }
- #qrcode{
- 	float:left;
- 	width:145px;
- 	height:140px;
- 	border:1px solid #ccc;
- 	margin:0px 5px;
- }
  

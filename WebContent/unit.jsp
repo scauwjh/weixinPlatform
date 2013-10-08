@@ -11,14 +11,30 @@
 				//alert(data);
 				data = $.trim(data);
 				if(data=="error")
-					alert("no coupon");
+					alert("error");
 				else{
-					$("#memo").val(data);
+					json = eval("("+data+")");
+					$("#memo").text(json.unitMemo);
 				}
 			}
 		);
 	});
 </script>
+<style type="text/css">
+	#memo{
+	 	float:left;
+	 	width:355px;
+	 	height:260px;
+	 	margin:0px 15px;
+ 	}
+	#qrcode{
+		float:left;
+		width:145px;
+		height:140px;
+		border:1px solid #ccc;
+		margin:0px 5px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="head.jsp" flush="true" />
@@ -39,7 +55,7 @@
 					广州纪梵酒店于198x年开业， 200X年装修，拥有900多间房，位于广州市繁盛商业区
 					之心脏地带，交通极为便利，是中国首批三家白金酒店之一。广州纪梵酒店装饰富丽堂皇，拥有
 					客、套房和数百套寓及写字楼，设备豪华，环境典雅舒适。别具特色的中西餐厅及酒吧，荟萃中、
-					法、日等多国风味美食，配合细致殷勤。<br><br>电话020-XXXXXX<br>传真020-XXXXX";
+					法、日等多国风味美食，配合细致殷勤。<br><br>电话020-XXXXXX<br>传真020-XXXXX
 				</div>
 				<div id="qrcode">
 					<img src="images/qrcode.jpg" width="143px" height="138px">

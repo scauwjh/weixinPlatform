@@ -7,6 +7,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var json;
+		$.ajaxSettings.async = false;
 		$.get("member?action=get",
 			function(data,status){
 				//alert(data);
@@ -20,9 +21,9 @@
 						var str = "";
 						str += "<div class='member_container'>";
 						str += "<div class='member_list'>";
-						str += "<p>会员ID："+json.member[0].memberID+"</p>";
-						str += "<p>联系电话："+json.member[0].telephone+"</p>";
-						str += "<p>创建时间："+json.member[0].createTime+"</p><br><br>";
+						str += "<div><label>会员ID：</label>"+json.member[0].memberID+"</div>";
+						str += "<div><label>联系电话：</label><span>"+json.member[0].telephone+"</span></div>";
+						str += "<div><label>创建时间：</label>"+json.member[0].createTime+"</div><br><br>";
 						str += "</div>";
 						str += "<div class='operate'><button>修改</button></div>";
 						str += "</div>";
@@ -31,6 +32,12 @@
 				}
 			}
 		);
+		$(".operate").children().click(function(){
+			//alert("123");
+			var obj = $(this).parent().prev().find("span");
+			obj.attr("contenteditable","");
+			obj.addClass("edit");
+		});
 	});
 </script>
 <style type="text/css">
@@ -46,6 +53,21 @@
 	.member_container{
 		width:550px;
 		height:100px;
+	}
+	.member_list div{
+		width:400px;
+		margin:5px 0;
+	}
+	.member_list span{
+		width:300px;
+	}
+	.member_list label{
+		width:150px;
+		font-weight:400px;
+	}
+	.edit{
+		width:300px;
+		border:1px solid #6bae2b;
 	}
 </style>
 </head>
