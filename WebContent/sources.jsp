@@ -7,14 +7,14 @@
 <script type="text/javascript">
 	var json;
 	$(document).ready(function(){
-		$.get("weixinmessage?action=get",
+		$.get("sources?action=get",
 			function(data,status){
 				data = $.trim(data);
 				//alert(data);
 				if(data=="error")
 					alert("no coupon");
 				else{
-					$("#main").html(data);
+					$("#main_container").text(data);
 				}
 			}
 		);
@@ -24,6 +24,7 @@
 <body>
 	<jsp:include page="head.jsp" flush="true" />
 	<div id="main">
+		<div id="main_container"></div>
 	</div>
 </body>
 </html>

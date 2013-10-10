@@ -35,7 +35,8 @@ public class WeixinMessageDaoImpl implements WeixinMessageDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			HbmDao.close();
+			return false;
 		}
-		return false;
 	}
 }

@@ -2,15 +2,19 @@ package com.weixin.domain;
 
 import java.util.Date;
 
+/** 
+ * @author wjh
+ *
+ */
 public class TB_WeixinMessage {
-	private Integer ID;
-	private String Introduction = "";
-	private String Message = "";
-	private Integer Score = 0;
-	private Integer Term = 0;
-	private Integer WelcomeMessage = 1;
-	private Date UpdateTime = new Date();
-	private TB_Unit unit;
+	private Integer ID;//主键ID
+	private String Introduction = "";//单位介绍
+	private String Message = "";//自动回复信息
+	private Integer Score = 0;//当前发布的积分
+	private Integer Term = 0;//积分的期数
+	private Integer WelcomeMessage = 1;//欢迎页面的图文信息
+	private Date UpdateTime = new Date();//更新时间
+	private TB_Unit unit;//所属单位
 	
 	public Integer getID() {
 		return this.ID;

@@ -1,0 +1,54 @@
+.member_list{
+	float:left;
+	width:450px;
+}
+.operate{
+	float:left;
+	width:100px;
+	margin:30px 0;
+}
+.operate a{
+	width:40px;
+	height:25px;
+	line-height:25px;
+	font-size:14px;
+}
+.member_container{
+	width:550px;
+	height:100px;
+}
+.member_list div{
+	width:400px;
+	margin:5px 0;
+	//border:1px solid;
+}
+.member_list span{
+	width:130px;
+	display:inline-block;
+}
+.member_list label{
+	width:150px;
+	font-weight:400px;
+}
+.edit{
+	width:300px;
+	border:1px solid #6bae2b;
+}
+#main{
+	height: 600px;
+}
+.page{
+	clear:both;
+	width:200px;
+	margin:20px 640px;
+}
+.page a{
+	margin-right:10px;
+	//text-decoration:underline;
+}
+.page a:hover{
+	color:red;
+}
+.change_button{
+	margin-right:10px;
+}

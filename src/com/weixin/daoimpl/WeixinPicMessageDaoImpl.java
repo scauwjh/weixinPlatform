@@ -41,8 +41,9 @@ public class WeixinPicMessageDaoImpl implements WeixinPicMessageDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			HbmDao.close();
+			return false;
 		}
-		return false;
 	}
 
 	public TB_WeixinPicMessage findByID(Integer picMsgID) {

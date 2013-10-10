@@ -30,21 +30,21 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>WeixinManager</servlet-name>
-    <servlet-class>com.weixin.servlet.WeixinManager</servlet-class>
+    <servlet-name>AutoReply</servlet-name>
+    <servlet-class>com.weixin.servlet.AutoReply</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>WeixinManager</servlet-name>
-    <url-pattern>/WeixinManager</url-pattern>
+    <servlet-name>AutoReply</servlet-name>
+    <url-pattern>/autoreply</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>WeixinMessage</servlet-name>
-    <servlet-class>com.weixin.servlet.WeixinMessage</servlet-class>
+    <servlet-name>Sources</servlet-name>
+    <servlet-class>com.weixin.servlet.Sources</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>WeixinMessage</servlet-name>
-    <url-pattern>/weixinmessage</url-pattern>
+    <servlet-name>Sources</servlet-name>
+    <url-pattern>/sources</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -122,7 +122,7 @@
   	
   	<filter-mapping>
   	    <filter-name>LoginFilter</filter-name>
-  	    <url-pattern>/message.jsp</url-pattern>
+  	    <url-pattern>/autoreply.jsp</url-pattern>
   	</filter-mapping>
   	
   	<filter-mapping>

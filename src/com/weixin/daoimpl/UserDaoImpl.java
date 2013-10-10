@@ -39,8 +39,9 @@ public class UserDaoImpl implements UserDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			HbmDao.close();
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -48,6 +49,8 @@ public class UserDaoImpl implements UserDao {
 		HbmDao.begin();
 		@SuppressWarnings("unchecked")
 		List<TB_User> list = HbmDao.getSession().createQuery("from TB_User tb order by tb.UserID").list();
+		HbmDao.commit();
+		HbmDao.close();
 		if(list.size()>0)
 			return list;
 		return null;

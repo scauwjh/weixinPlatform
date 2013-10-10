@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="css/head.css">
 <link rel="stylesheet" type="text/css" href="css/global.css">
 <script type="text/javascript">
 $(document).ready(function(){
-	var flag
+	var flag = 0;
 	$("#nav_ul").children("li").children("a").hover(function(){
 		flag = 0;
 		if($(this).hasClass("li_selected"))
@@ -27,12 +26,12 @@ $(document).ready(function(){
 				<li class="nav_li"><a href="member.jsp" class="nav_a">会员管理</a></li>
 				<li class="nav_li"><a href="sources.jsp" class="nav_a">素材管理</a></li>
 				<li class="nav_li"><a href="coupon.jsp" class="nav_a">优惠信息</a></li>
-				<li class="nav_li"><a href="message.jsp" class="nav_a">自动回复</a></li>
+				<li class="nav_li"><a href="autoreply.jsp" class="nav_a">自动回复</a></li>
 				<li class="nav_li"><a href="menu.jsp" class="nav_a">自定义菜单</a></li>
 			</ul>
 		</div>
 	</div>
-</div>	
+</div>
 	<!--
 	<a href="addmenu.jsp">添加菜单（测试数据用）</a><br>
 	<a href="addsource.jsp">添加素材（测试数据用）</a><br>

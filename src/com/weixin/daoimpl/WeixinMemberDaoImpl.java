@@ -39,6 +39,7 @@ public class WeixinMemberDaoImpl implements WeixinMemberDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			HbmDao.close();
 			return false;
 		}
 	}

@@ -13,15 +13,15 @@
 		<!-- 指定连接数据库的密码 -->
 		<property name="connection.password">root</property>
 		<!-- 指定连接池里最大连接数 -->
-		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.max_size">30</property>
 		<!-- 指定连接池里最小连接数 -->
 		<property name="hibernate.c3p0.min_size">5</property>
 		<!-- 指定连接池里连接的超时时长 -->
-		<property name="hibernate.c3p0.timeout">120</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
 		<!-- 指定连接池里最大缓存多少个Statement对象 -->
 		<property name="hibernate.c3p0.max_statements">100</property>
 		<property name="hibernate.c3p0.idle_test_period">120</property>
-		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.acquire_increment">1</property>
 		<property name="hibernate.c3p0.validate">true</property>
 		<!-- 指定数据库方言 -->
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>

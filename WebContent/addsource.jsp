@@ -152,7 +152,7 @@ Integer rand = (int)(Math.random()*100);
 				<button id="submit">提交</button>
 			</div>
 			
-			<form method="post" action="weixinmessage?action=add" id="messageForm">
+			<form method="post" action="sources?action=add" id="messageForm">
 				<input type="hidden" name="picMsg" id="picMsgid">
 			</form>
 			

@@ -138,6 +138,13 @@ public class CreateMenu extends HttpServlet {
 		//单位id，从session获取
 		Integer unitID = (Integer)request.getSession().getAttribute("unitID");
 		TB_Unit unit = unitDao.findByUnitID(unitID);
-		response.getWriter().println(unit.getMenu());
+		try{
+			response.getWriter().println(unit.getMenu());
+			return;
+		}catch(Exception e){
+			e.printStackTrace();
+			response.getWriter().println("error");
+			return;
+		}
 	}
 }

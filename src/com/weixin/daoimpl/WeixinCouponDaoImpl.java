@@ -28,8 +28,9 @@ public class WeixinCouponDaoImpl implements WeixinCouponDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			HbmDao.close();
+			return false;
 		}
-		return false;
 	}
 
 	public List<TB_WeixinCoupon> findByUnit(Integer unitID) {

@@ -28,7 +28,7 @@ import net.sf.json.JSONObject;
  * 1.添加图文信息
  * 2.更新自动回复（暂未实现）
  */
-public class WeixinMessage extends HttpServlet {
+public class Sources extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private WeixinPicMessageDaoImpl picMessageDao = WeixinPicMessageDaoImpl.getInstance();
@@ -45,13 +45,10 @@ public class WeixinMessage extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String action = request.getParameter("action");
-		if (action.equals("add")) {
-			//添加
+		if (action.equals("update")) {
+			//添加更新
 			addPicMsg(request, response);
 		} 
-		else if(action.equals("update")){
-			//更新
-		}
 		else if(action.equals("delete")){
 			//删除
 		}
