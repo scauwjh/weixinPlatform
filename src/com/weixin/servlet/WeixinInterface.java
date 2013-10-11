@@ -4,12 +4,12 @@ import com.weixin.basic.Weixin_Articles;
 import com.weixin.daoimpl.UnitDaoImpl;
 import com.weixin.daoimpl.WeixinKeyDaoImpl;
 import com.weixin.daoimpl.WeixinMemberDaoImpl;
-import com.weixin.daoimpl.WeixinMessageDaoImpl;
+import com.weixin.daoimpl.UnitMessageDaoImpl;
 import com.weixin.daoimpl.WeixinPicMessageDaoImpl;
 import com.weixin.domain.TB_Unit;
 import com.weixin.domain.TB_WeixinKey;
 import com.weixin.domain.TB_WeixinMember;
-import com.weixin.domain.TB_WeixinMessage;
+import com.weixin.domain.TB_UnitMessage;
 import com.weixin.domain.TB_WeixinPicMessage;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ import net.sf.json.JSONObject;
 public class WeixinInterface extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private WeixinKeyDaoImpl keyDao = WeixinKeyDaoImpl.getInstance();
-	private WeixinMessageDaoImpl messageDao = WeixinMessageDaoImpl.getInstance();
+	private UnitMessageDaoImpl messageDao = UnitMessageDaoImpl.getInstance();
 	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
 	private WeixinPicMessageDaoImpl picMessageDao = WeixinPicMessageDaoImpl.getInstance();
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
@@ -57,7 +57,28 @@ public class WeixinInterface extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().println(request.getParameter("echostr"));
 	}
-
+	
+	protected List<Weixin_Articles> getPicMsgList(Integer welcomeID){
+		TB_WeixinPicMessage picMessage = picMessageDao.findByID(welcomeID);
+		JSONObject picMsg = JSONObject.fromObject(picMessage.getPicMessage());
+		
+		List<Weixin_Articles> list = new LinkedList<Weixin_Articles>();
+		Integer num = (Integer)picMsg.get("picNum");
+		JSONArray picDesc = JSONArray.fromObject(picMsg.getString("picDesc"));
+		JSONArray picTitle = JSONArray.fromObject(picMsg.getString("picTitle"));
+		JSONArray picUrl = JSONArray.fromObject(picMsg.getString("picUrl"));
+		JSONArray jumpUrl = JSONArray.fromObject(picMsg.getString("jumpUrl"));
+		for(int i=0;i<num;i++){
+			Weixin_Articles articles = new Weixin_Articles();
+			articles.setDes(picDesc.getString(i));//("尊敬的客户，欢迎您体验UHOTEL酒店微信营销系统\n\n回复1：酒店资讯\n\n回复2：美食推荐\n\n回复3：绑定手机\n\n回复4：查询积分")
+			articles.setTitle(picTitle.getString(i));
+			articles.setPicUrl(picUrl.getString(i));
+			articles.setUrl(jumpUrl.getString(i));
+			list.add(articles);
+		}
+		return list;
+	}
+	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -82,7 +103,7 @@ public class WeixinInterface extends HttpServlet {
 			if (this.event.equals("subscribe")) {
 				Integer score = 0;
 				Integer term = 0;
-				TB_WeixinMessage weixin = this.messageDao.findByUnit(unitID);
+				TB_UnitMessage weixin = this.messageDao.findByUnit(unitID);
 				if (weixin != null) {
 					term = weixin.getTerm();
 					score = weixin.getScore();
@@ -108,15 +129,9 @@ public class WeixinInterface extends HttpServlet {
 				member.setScore(member.getScore()+score);
 				member.setTerm(term);
 				this.memberDao.saveOrUpdate(member);
-				List<Weixin_Articles> list = new LinkedList<Weixin_Articles>();
-				Weixin_Articles articles = new Weixin_Articles();
-				articles.setDes("尊敬的客户，欢迎您体验UHOTEL酒店微信营销系统\n\n回复1：酒店资讯\n\n回复2：美食推荐\n\n回复3：绑定手机\n\n回复4：查询积分");
-
-				articles.setTitle("UHOTEL酒店微信系统");
-				articles.setPicUrl("http://61.28.112.242:8080/Weixin/images/jifen.jpg");
-				articles.setUrl("http://www.baidu.com");
-				list.add(articles);
-				sentContent = picMsg(list);
+				//欢迎页面
+				Integer welcomeID = weixin.getWelcomeMessage();
+				sentContent = picMsg(getPicMsgList(welcomeID));
 				flag = true;
 			} 
 			//click事件处理
@@ -162,7 +177,7 @@ public class WeixinInterface extends HttpServlet {
 				break;
 			case 2:
 				flag = true;
-				TB_WeixinMessage weixinMsg = this.messageDao.findByUnit(unitID);
+				TB_UnitMessage weixinMsg = this.messageDao.findByUnit(unitID);
 				TB_WeixinPicMessage picMsg = this.picMessageDao
 						.findByID(weixinMsg.getWelcomeMessage());
 				JSONObject json = new JSONObject();
@@ -197,11 +212,14 @@ public class WeixinInterface extends HttpServlet {
 				break;
 			}
 		} else {
-			sentContent = "尊敬的客户，欢迎您体验UHOTEL酒店微信营销系统\n"
-					+ "回复1：酒店资讯\n"
-					+ "回复2：美食推荐\n"
-					+ "回复3：获取入住优惠\n"
-					+ "回复4：查询积分";
+			TB_UnitMessage weixin = messageDao.findByUnit(unitID);
+			Integer welcomeID = weixin.getWelcomeMessage();
+			sentContent = picMsg(getPicMsgList(welcomeID));
+//			sentContent = "尊敬的客户，欢迎您体验UHOTEL酒店微信营销系统\n"
+//					+ "回复1：酒店资讯\n"
+//					+ "回复2：美食推荐\n"
+//					+ "回复3：获取入住优惠\n"
+//					+ "回复4：查询积分";
 		}
 		if (flag)
 			out.println(sentContent);

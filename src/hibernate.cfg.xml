@@ -36,7 +36,7 @@
 		<mapping resource="com/weixin/domain/TB_WeixinCoupon.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_WeixinKey.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_WeixinMember.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_WeixinMessage.hbm.xml"/>
+		<mapping resource="com/weixin/domain/TB_UnitMessage.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_WeixinPicMessage.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_Unit.hbm.xml"/>
 	</session-factory>

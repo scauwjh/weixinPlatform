@@ -152,7 +152,7 @@ Integer rand = (int)(Math.random()*100);
 				<button id="submit">提交</button>
 			</div>
 			
-			<form method="post" action="sources?action=add" id="messageForm">
+			<form method="post" action="sources?action=update" id="messageForm">
 				<input type="hidden" name="picMsg" id="picMsgid">
 			</form>
 			
@@ -188,7 +188,7 @@ Integer rand = (int)(Math.random()*100);
 						</div>
 						<div style="margin-left:10px;margin-top:5px;width:230px;height:1px;background:#ccc;"></div>
 						<div style="color:#333;font-size:14px;margin-left:12px;line-height:25px;" id="getDetails">
-							查看全文(点击编辑详细说明)&nbsp;&nbsp;&nbsp;>
+							查看全文(点击编辑详细说明)&nbsp;&nbsp;&nbsp;
 						</div>
 					</div>
 					

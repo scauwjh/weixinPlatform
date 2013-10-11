@@ -1,9 +1,5 @@
-package com.weixin.basic;
+package com.weixin.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +15,7 @@ import net.sf.json.JSONObject;
  * 
  *
  */
-public class AutoReply {
+public class AutoReplyService {
 	
 	/**
 	 * map里面的json格式 :
@@ -28,11 +24,22 @@ public class AutoReply {
 	 * 	"message":"123456"
 	 * }
 	 */
-	private static Map<String,JSONObject> map = new HashMap<String,JSONObject>();
-	private static Map<String,String> userInput = new HashMap<String,String>();
+	private Map<String,JSONObject> map = null;
+	private Map<String,String> userInput = null;
 	
+	/**
+	 * 构造方法
+	 */
+	public AutoReplyService(){
+		this.map = new HashMap<String,JSONObject>();
+		this.userInput = new HashMap<String,String>();
+	}
 	
-	private static void printMenu(JSONArray array){
+	/**
+	 * @param array 自动回复的JSONArray
+	 * 打印首页菜单
+	 */
+	public void printMenu(JSONArray array){
 		for(int i=0;i<array.size();i++){
 			JSONObject json = JSONObject.fromObject(array.get(i));
 			String msg = json.getString("message");
@@ -40,7 +47,11 @@ public class AutoReply {
 		}
 	}
 	
-	private static void ergodicJsonArray(JSONArray array){
+	/**
+	 * @param array 自动回复的JSONArray
+	 * 遍历array，用map存储内容
+	 */
+	private void ergodicJsonArray(JSONArray array){
 		for(int i=0;i<array.size();i++){
 			JSONObject json = JSONObject.fromObject(array.get(i));
 			String num = json.getString("num");
@@ -73,7 +84,10 @@ public class AutoReply {
 		return;
 	}
 	
-	private static void addHint(){
+	/**
+	 * 添加返回提示
+	 */
+	private void addHint(){
 		Collection<JSONObject> c = map.values();
 		Iterator<JSONObject> it = c.iterator();
 		for(;it.hasNext();){
@@ -87,19 +101,14 @@ public class AutoReply {
 		}
 	}
 	
-	private static void autoReply(){
+	/**
+	 * 自动回复
+	 * 
+	 */
+	public void autoReply(Integer unitID){
 		try{
-			URL url = new URL("http://localhost:8080/weixin/autoreply?action=get");
-			URLConnection conn = url.openConnection();
-			conn.setDoInput(true);
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			StringBuilder sb = new StringBuilder();
-			String str = null;
-			while((str=br.readLine())!=null){
-				sb.append(str);
-			}
-			JSONObject json = JSONObject.fromObject(sb.toString());
-			JSONObject autoReply = JSONObject.fromObject(json.get("message"));
+			JSONObject unitMessage = new MessageService().getMessage(unitID);
+			JSONObject autoReply = JSONObject.fromObject(unitMessage.get("message"));
 			JSONArray replyArray = JSONArray.fromObject(autoReply.get("message"));
 			ergodicJsonArray(replyArray);
 			addHint();
@@ -144,6 +153,6 @@ public class AutoReply {
 	}
 	
 	public static void main(String args[]){
-		autoReply();
+		new AutoReplyService().autoReply(1);
 	}
 }

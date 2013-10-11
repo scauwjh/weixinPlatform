@@ -30,6 +30,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>Message</servlet-name>
+    <servlet-class>com.weixin.servlet.Message</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Message</servlet-name>
+    <url-pattern>/message</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>AutoReply</servlet-name>
     <servlet-class>com.weixin.servlet.AutoReply</servlet-class>
   </servlet>
@@ -138,6 +147,11 @@
   	<filter-mapping>
   	    <filter-name>LoginFilter</filter-name>
   	    <url-pattern>/unit_id.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/unit_welcome.jsp</url-pattern>
   	</filter-mapping>
   	
   	<filter-mapping>

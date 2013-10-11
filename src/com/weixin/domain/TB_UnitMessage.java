@@ -6,7 +6,7 @@ import java.util.Date;
  * @author wjh
  *
  */
-public class TB_WeixinMessage {
+public class TB_UnitMessage {
 	private Integer ID;//主键ID
 	private String Introduction = "";//单位介绍
 	private String Message = "";//自动回复信息

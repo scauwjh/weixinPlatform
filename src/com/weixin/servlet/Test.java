@@ -41,8 +41,10 @@ public class Test extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		JSONObject json = JSONObject.fromObject(request.getParameter("data"));
-		response.getWriter().println(json.getString("coupon"));
+		
+		
+//		JSONObject json = JSONObject.fromObject(request.getParameter("data"));
+//		response.getWriter().println(json.getString("coupon"));
 		
 //		try{
 //			TB_Unit unit = new TB_Unit();

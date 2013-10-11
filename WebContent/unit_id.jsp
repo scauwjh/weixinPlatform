@@ -48,8 +48,8 @@
 			<div id="main_left">
 				<ul class="left_menu">
 					<li class="left_nav"><a href="unit.jsp">单位介绍</a></li>
-					<li class="left_nav_selected"><a href="unit_id.jsp">APPID和Secret</a></li>
-					<li class="left_nav"><a href="javascript:;">其他</a></li>
+					<li class="left_nav_selected"><a href="javascript:;">APPID和Secret</a></li>
+					<li class="left_nav"><a href="unit_welcome.jsp">微信首页设置</a></li>
 				</ul>
 			</div>
 			<div id="main_content">

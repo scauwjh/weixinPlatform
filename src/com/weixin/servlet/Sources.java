@@ -74,7 +74,7 @@ public class Sources extends HttpServlet {
 				json.element("ID", message.getID());
 				json.element("message", message.getPicMessage());
 				json.element("unitID", message.getUnit().getUnitID());
-				json.element("updateTime", message.getUpdateTime());
+				json.element("updateTime", message.getUpdateTime().toString());
 				array.element(json);
 				num++;
 			}
