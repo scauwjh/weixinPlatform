@@ -7,16 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
-import com.weixin.dao.UnitDao;
-import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.UserDaoImpl;
-import com.weixin.daoimpl.WeixinKeyDaoImpl;
-import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_User;
-import com.weixin.domain.TB_WeixinKey;
-import com.weixin.utility.Hint;
+//import net.sf.json.JSONObject;
+//
+//import com.weixin.dao.UnitDao;
+//import com.weixin.daoimpl.UnitDaoImpl;
+//import com.weixin.daoimpl.UserDaoImpl;
+//import com.weixin.daoimpl.WeixinKeyDaoImpl;
+//import com.weixin.domain.TB_Unit;
+//import com.weixin.domain.TB_User;
+//import com.weixin.domain.TB_WeixinKey;
+//import com.weixin.utility.Hint;
 
 /**
  * @author wjh
@@ -27,9 +27,9 @@ import com.weixin.utility.Hint;
  */
 public class Test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private WeixinKeyDaoImpl weixinKeyDao = WeixinKeyDaoImpl.getInstance();
-	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
-	private UserDaoImpl userDao = UserDaoImpl.getInstance();
+//	private WeixinKeyDaoImpl weixinKeyDao = WeixinKeyDaoImpl.getInstance();
+//	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
+//	private UserDaoImpl userDao = UserDaoImpl.getInstance();
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

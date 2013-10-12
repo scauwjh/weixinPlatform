@@ -1,7 +1,6 @@
 package com.weixin.servlet;
 
 import com.weixin.service.MessageService;
-import com.weixin.utility.Hint;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -74,7 +73,7 @@ public class Message extends HttpServlet {
 		JSONObject json = JSONObject.fromObject(data);
 		boolean ret = msgService.saveOrUpdate(json);
 		if(ret){
-			Hint.hint("更新成功", "unit.jsp", request, response);
+			out.println("ok");
 			return;
 		}
 		out.println("error");
@@ -84,7 +83,7 @@ public class Message extends HttpServlet {
 		String autoReply = request.getParameter("data");
 		boolean ret = msgService.updateAutoReply(unitID, autoReply);
 		if(ret){
-			Hint.hint("更新成功", "autoreply.jsp", request, response);
+			out.println("ok");
 			return;
 		}
 		out.println("error");

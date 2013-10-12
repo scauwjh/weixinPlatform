@@ -10,7 +10,8 @@ import java.security.MessageDigest;
  * MD5加密
  */
 public class MD5 {
-	public static final String MD5(String s) {
+	
+	public static String toMD5(String s) {
 		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 				'A', 'B', 'C', 'D', 'E', 'F' };
 		try {
@@ -38,7 +39,7 @@ public class MD5 {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(MD5("20121221"));
-		System.out.println(MD5("加密"));
+		System.out.println(toMD5("20121221"));
+		System.out.println(toMD5("加密"));
 	}
 }

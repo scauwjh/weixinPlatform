@@ -1,7 +1,7 @@
 var json;
 $(document).ready(function() {
 	$.ajaxSettings.async = false; //设置同步请求
-	$.get("createmenu?action=get",
+	$.get("menu?action=get",
 		function(data, status) {
 			if(data=="error"){
 				json = {"button":[]};
@@ -223,7 +223,7 @@ $(document).ready(function() {
 		buttons: {提交: function() {
 				var req = JSON.stringify(json);
 				alert(req);
-				$.post("createmenu?action=post", {
+				$.post("menu?action=post", {
 						data: req
 					},
 					function(data, status) {
@@ -408,7 +408,7 @@ function post(temp) {
 	req = JSON.stringify(json);
 	alert(req);
 	//var req = JSON.stringify(json);
-	$.post("createmenu?action=post",
+	$.post("menu?action=post",
 	{data:req},
 	function(data,status){
 		alert(data);

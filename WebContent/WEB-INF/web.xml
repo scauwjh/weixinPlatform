@@ -12,12 +12,12 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>CreateMenu</servlet-name>
-    <servlet-class>com.weixin.servlet.CreateMenu</servlet-class>
+    <servlet-name>Menu</servlet-name>
+    <servlet-class>com.weixin.servlet.Menu</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateMenu</servlet-name>
-    <url-pattern>/createmenu</url-pattern>
+    <servlet-name>Menu</servlet-name>
+    <url-pattern>/menu</url-pattern>
   </servlet-mapping>
   
   <servlet>

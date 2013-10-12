@@ -1,20 +1,15 @@
 package com.weixin.servlet;
 
-import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.WeixinMemberDaoImpl;
-import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_WeixinMember;
+import com.weixin.service.MemberService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -26,8 +21,12 @@ import net.sf.json.JSONObject;
  */
 public class Member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
-	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
+	
+	private MemberService memberService = new MemberService();
+	
+	private PrintWriter out = null;
+	
+	
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -37,6 +36,8 @@ public class Member extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		out = response.getWriter();
 		String action = request.getParameter("action");
 		if(action.equals("get")){
 			memberManager(request,response);
@@ -57,61 +58,23 @@ public class Member extends HttpServlet {
 	 */
 	private void updateMember(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		try{
-			JSONObject data = JSONObject.fromObject(request.getParameter("data"));
-			String memberID = (String) data.get("memberID");
-			Integer unitID = (Integer) data.get("unitID");
-			TB_WeixinMember member = memberDao.findByMemberIDandUnit(memberID, unitID);
-			if(member==null){
-				member = new TB_WeixinMember();
-				member.setMemberID(memberID);
-				TB_Unit unit = unitDao.findByUnitID(unitID);
-				member.setUnit(unit);
-			}
-			member.setCoupon(data.getString("coupon"));
-//			member.setScore((Integer)data.get("score"));
-//			member.setTerm((Integer)data.get("term"));
-			member.setTelephone(data.getString("telephone"));
-			memberDao.saveOrUpdate(member);
+		JSONObject data = JSONObject.fromObject(request.getParameter("data"));
+		boolean flag = memberService.update(data);
+		if(flag){
 			out.println("ok");
-		}catch(Exception e){
-			e.printStackTrace();
-			out.println("error");
+			return;
 		}
+		out.println("error");
 	}
 	
 	private void memberManager(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		Integer unitID = (Integer) request.getSession().getAttribute("unitID");
-		List<TB_WeixinMember> member = memberDao.findByUnit(unitID);
-		if(member==null){
-			out.println("error");
+		JSONObject json = memberService.get(unitID);
+		if(json!=null){
+			out.println(json);
 			return;
 		}
-		JSONArray array = new JSONArray();
-		for(int i=0;i<member.size();i++){
-			JSONObject json = new JSONObject();
-			TB_WeixinMember tmpTB = member.get(i);
-			json.element("coupon",tmpTB.getCoupon());
-			json.element("createTime", tmpTB.getCreateTime().toString());
-			json.element("ID", tmpTB.getID());
-			json.element("memberID", tmpTB.getMemberID());
-			json.element("openID", tmpTB.getOpenID());
-			json.element("score", tmpTB.getScore());
-			json.element("telephone", tmpTB.getTelephone());
-			json.element("term", tmpTB.getTerm());
-			json.element("unitID", tmpTB.getUnit().getUnitID());
-			//json.element("unitName", tmpTB.getUnit().getUnitName());
-			array.add(json);
-		}
-		JSONObject print = new JSONObject();
-		print.element("member", array);
-		out.println(print);
+		out.println("error");
 	}
 }

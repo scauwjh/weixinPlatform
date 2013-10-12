@@ -62,7 +62,7 @@ public class MessageService {
 		Integer score = Integer.parseInt(json.getString("score"));
 		Integer term = Integer.parseInt(json.getString("term"));
 		String message = json.getString("message");
-		Integer welcomeNum = Integer.parseInt(json.getString("welcomeNum"));
+		Integer welcomeNum = Integer.parseInt(json.getString("welcomeMessage"));
 		Date updateTime = new Date();
 		try{
 			TB_UnitMessage unitMessage = unitMessageDao.findByUnit(unitID);
@@ -77,6 +77,7 @@ public class MessageService {
 			unitMessage.setTerm(term);
 			unitMessage.setUpdateTime(updateTime);
 			unitMessage.setWelcomeMessage(welcomeNum);
+			unitMessageDao.saveOrUpdate(unitMessage);
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();

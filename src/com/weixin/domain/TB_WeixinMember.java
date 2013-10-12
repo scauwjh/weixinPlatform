@@ -12,6 +12,8 @@ public class TB_WeixinMember {
 	private String Coupon = "";//优惠券JSON数组，含优惠券ID和获取时间
 	private String Telephone = "";//绑定的电话号码
 	private TB_Unit unit;//所属单位
+	private String LastInput;//记忆用户上一次输入的值
+	private Date LastTime;//记忆用户上一次输入的时间
 	
 	public String getTelephone() {
 		return this.Telephone;
@@ -84,5 +86,22 @@ public class TB_WeixinMember {
 	public void setUnit(TB_Unit unit) {
 		this.unit = unit;
 	}
+
+	public String getLastInput() {
+		return LastInput;
+	}
+
+	public void setLastInput(String lastInput) {
+		LastInput = lastInput;
+	}
+
+	public Date getLastTime() {
+		return LastTime;
+	}
+
+	public void setLastTime(Date lastTime) {
+		LastTime = lastTime;
+	}
+	
 	
 }

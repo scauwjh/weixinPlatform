@@ -29,6 +29,10 @@
 		
 		<property name="Coupon" column="Coupon" type="string" length="1000" not-null="true"/>
 		
+		<property name="LastInput" column="LastInput" type="string" length="2" not-null="true"/>
+		
+		<property name="LastTime" column="LastTime" type="java.util.Date"/>
+		
 		<many-to-one name="Unit" column="Unit" />
     </class>
 </hibernate-mapping>

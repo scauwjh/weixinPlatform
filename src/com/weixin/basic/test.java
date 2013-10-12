@@ -8,7 +8,6 @@ import net.sf.json.JSONObject;
 
 import com.weixin.daoimpl.WeixinPicMessageDaoImpl;
 import com.weixin.domain.TB_WeixinPicMessage;
-import com.weixin.servlet.WeixinInterface;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com

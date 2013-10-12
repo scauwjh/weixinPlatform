@@ -1,10 +1,14 @@
 package com.weixin.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.weixin.daoimpl.WeixinMemberDaoImpl;
+import com.weixin.domain.TB_WeixinMember;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -13,7 +17,7 @@ import net.sf.json.JSONObject;
  * @author wjh E-mail: 472174314@qq.com
  * @version 创建时间：2013年10月10日 下午3:48:06 
  * 
- *
+ * 自动回复Service
  */
 public class AutoReplyService {
 	
@@ -24,27 +28,39 @@ public class AutoReplyService {
 	 * 	"message":"123456"
 	 * }
 	 */
+	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
+	
 	private Map<String,JSONObject> map = null;
-	private Map<String,String> userInput = null;
+	private JSONObject unitMessage = null;
+	private JSONObject autoReply = null;
+	private JSONArray replyArray = null;
+	
 	
 	/**
-	 * 构造方法
+	 * 有参构造方法
+	 * @param unitID
 	 */
-	public AutoReplyService(){
+	public AutoReplyService(Integer unitID){
 		this.map = new HashMap<String,JSONObject>();
-		this.userInput = new HashMap<String,String>();
+		unitMessage = new MessageService().getMessage(unitID);
+		autoReply = JSONObject.fromObject(unitMessage.get("message"));
+		replyArray = JSONArray.fromObject(autoReply.get("message"));
+		ergodicJsonArray(replyArray);
+		addHint();
 	}
 	
 	/**
 	 * @param array 自动回复的JSONArray
-	 * 打印首页菜单
+	 * 拼装首页菜单
 	 */
-	public void printMenu(JSONArray array){
+	private String printMenu(JSONArray array){
+		String str = "";
 		for(int i=0;i<array.size();i++){
 			JSONObject json = JSONObject.fromObject(array.get(i));
 			String msg = json.getString("message");
-			System.out.println(msg);
+			str += msg+"\n\n";
 		}
+		return str;
 	}
 	
 	/**
@@ -103,56 +119,58 @@ public class AutoReplyService {
 	
 	/**
 	 * 自动回复
-	 * 
+	 * @param unitID
+	 * @param key
+	 * @return String
 	 */
-	public void autoReply(Integer unitID){
+	public String autoReply(String key, String fromID, Integer unitID){
 		try{
-			JSONObject unitMessage = new MessageService().getMessage(unitID);
-			JSONObject autoReply = JSONObject.fromObject(unitMessage.get("message"));
-			JSONArray replyArray = JSONArray.fromObject(autoReply.get("message"));
-			ergodicJsonArray(replyArray);
-			addHint();
-			
-			//以下操作为java控制台输出
-			printMenu(replyArray);
-			Scanner input = new Scanner(System.in);
-			String print = null;
-			userInput.put("wjh", "");
-			while(true){
-				print = null;
-				JSONObject tmpJson = null;
-				String inStr = input.next();
-				if(inStr.equals("e")){
-					break;
+			String ret = null;
+			JSONObject tmpJson = null;
+			if(key.equals("0")){
+				ret = printMenu(replyArray);
+			}else{
+				TB_WeixinMember member = memberDao.findByOpenIDandUnit(fromID, unitID);
+				String lastInput = member.getLastInput();
+				if(key.equals("0")||lastInput==null){
+					lastInput = "";
 				}
-				if(inStr.equals("0")){
-					userInput.put("wjh", "");
-					printMenu(replyArray);
-				}else{
-					tmpJson = map.get(userInput.get("wjh")+inStr);
-					if(tmpJson==null){
-						print = "您的输入有误";
-						System.out.println(print);
-						printMenu(replyArray);
-					}
-					else{
-						print = tmpJson.getString("message");
-						if(tmpJson.getString("child").equals("1")){
-							String tmpStr = userInput.get("wjh");
-							tmpStr += inStr;
-							userInput.put("wjh", tmpStr);
-						}
-						System.out.println(print);
-					}
+				lastInput += key;
+				member.setLastInput(lastInput);
+				member.setLastTime(new Date());
+				memberDao.saveOrUpdate(member);
+				
+				tmpJson = map.get(lastInput);
+				if(tmpJson==null){
+					ret = "您的输入有误\n";
+					ret += printMenu(replyArray);
+				}
+				else{
+					ret = tmpJson.getString("message");
 				}
 			}
-			input.close();
+			return ret;
 		}catch(Exception e){
 			e.printStackTrace();
+			String ret = "error";
+			return ret;
 		}
 	}
 	
 	public static void main(String args[]){
-		new AutoReplyService().autoReply(1);
+		AutoReplyService ARService = new AutoReplyService(1);
+		Scanner input = new Scanner(System.in);
+		String in = null;
+		String print = null;
+		while(true){
+			in = input.next();
+			if(in.equals("e")){
+				System.out.println("Bey!");
+				break;
+			}
+			print = ARService.autoReply(in,"oKoALj_QxOeQK-AKwI354nX9kIWM",1);
+			System.out.println(print);
+		}
+		input.close();
 	}
 }
