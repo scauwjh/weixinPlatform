@@ -19,6 +19,7 @@ $(document).ready(function(){
 	$.get("sources?action=get",
 		function(data){
 			if(data=="error"){
+				alert(data);
 				flag = true;
 			}else{
 				picMsgJson = eval("("+data+")");
@@ -34,13 +35,13 @@ $(document).ready(function(){
 			}
 		}
 	);
-	$.get("message?action=get",
+	$.get("unit?action=get",
 		function(data){
 			if(data=="error"){
 				flag = true;
 			}else{
 				message = eval("("+data+")");
-				welcomeID = message.welcomeMessage;
+				welcomeID = message.welcomePage;
 				init(welcomeID,"left");
 				init(1,"right");
 				/* welcomeMsg = picMsgJson.message[welcomeID-1];
@@ -89,7 +90,7 @@ $(document).ready(function(){
 		else{
 			var tmpID = welcomeMsg.ID;
 			//alert(tmpID);
-			message.welcomeMessage = tmpID;
+			message.welcomePage = tmpID;
 			var req = JSON.stringify(message);
 			//alert(req);
 			$.post("message?action=updateUM",

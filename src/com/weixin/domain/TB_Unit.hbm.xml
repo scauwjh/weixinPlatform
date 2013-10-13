@@ -21,9 +21,19 @@
 		
 		<property name="Secret" column="Secret" type="string" length="35" not-null="true"/>
 		
-		<property name="Menu" column="Menu" type="string" length="1000" not-null="true"/>
+		<property name="Introduction" column="Introduction" type="string" length="1000"/>
 		
-		<property name="UnitMemo" column="UnitMemo" type="string" length="500" not-null="true"/>
+		<property name="AutoReply" column="AutoReply" type="string" length="1000"/>
+		
+		<property name="Score" column="Score" type="integer" not-null="true"/>
+		
+		<property name="Term" column="Term" type="integer" not-null="true"/>
+		
+		<property name="WelcomePage" column="WelcomePage" type="integer" not-null="true"/>
+		
+		<property name="Menu" column="Menu" type="string" length="1000"/>
+		
+		<property name="UpdateTime" column="UpdateTime" type="java.util.Date" not-null="true" />
 		
 		<property name="CreateTime" column="CreateTime" type="java.util.Date" not-null="true" />
 		

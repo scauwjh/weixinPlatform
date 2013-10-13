@@ -6,8 +6,8 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.weixin.daoimpl.WeixinPicMessageDaoImpl;
-import com.weixin.domain.TB_WeixinPicMessage;
+import com.weixin.daoimpl.SourcesDaoImpl;
+import com.weixin.domain.TB_Sources;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -17,10 +17,10 @@ import com.weixin.domain.TB_WeixinPicMessage;
  */
 public class test {
 	
-	private static WeixinPicMessageDaoImpl picMessageDao = WeixinPicMessageDaoImpl.getInstance();
+	private static SourcesDaoImpl picMessageDao = SourcesDaoImpl.getInstance();
 	
 	protected static List<Weixin_Articles> getPicMsgList(Integer welcomeID){
-		TB_WeixinPicMessage picMessage = picMessageDao.findByID(welcomeID);
+		TB_Sources picMessage = picMessageDao.findByID(welcomeID);
 		JSONObject picMsg = JSONObject.fromObject(picMessage.getPicMessage());
 		
 		List<Weixin_Articles> list = new LinkedList<Weixin_Articles>();

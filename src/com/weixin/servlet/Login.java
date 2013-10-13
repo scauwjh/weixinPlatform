@@ -1,5 +1,6 @@
 package com.weixin.servlet;
 
+import com.weixin.daoimpl.UnitDaoImpl;
 import com.weixin.daoimpl.UserDaoImpl;
 import com.weixin.domain.TB_Unit;
 import com.weixin.domain.TB_User;
@@ -23,7 +24,8 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDaoImpl userDao = UserDaoImpl.getInstance();
-
+	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
+	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		doPost(request, response);
@@ -36,9 +38,9 @@ public class Login extends HttpServlet {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		//第一次运行执行，后期修改为一个servlet吧
-//		if(userDao.getAllUser()==null){
-//			addAdmin();
-//		}
+		if(userDao.getAllUser()==null){
+			addAdmin();
+		}
 		TB_User user = userDao.findByUserAccountandPassword(account,password);
 		if (user == null) {
 			Hint.hint("帐号或者密码错误", "login.jsp", request, response);
@@ -56,12 +58,19 @@ public class Login extends HttpServlet {
 		response.sendRedirect("unit.jsp");
 	}
 	
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private void addAdmin(){
+		TB_Unit unit = new TB_Unit();
+		unit.setAppid("wx6c5157bbf599d162");
+		unit.setSecret("f7a0889bf9162c7f642e77e5bca1bc2a");
+		unit.setUnitName("西园大酒店");
+		unit.setWelcomePage(1);
+		unitDao.saveOrUpdate(unit);
 		TB_User user = new TB_User();
-		user.setUserAccount("admin");
+		user.setUserAccount("wjh");
 		user.setPassword("123");
-		user.setRole(1);
+		user.setRole(2);
+		user.setUnit(unit);
 		userDao.saveOrUpdate(user);
 	}
 }

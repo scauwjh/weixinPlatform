@@ -12,7 +12,7 @@ import com.weixin.domain.TB_User;
  * 系统用户
  */
 public abstract interface UserDao {
-	public abstract TB_User findByUserAccountandPassword(String account,String password);
-	public abstract boolean saveOrUpdate(TB_User user);
-	public abstract List<TB_User> getAllUser();
+	public TB_User findByUserAccountandPassword(String account,String password);
+	public void saveOrUpdate(TB_User user);
+	public List<TB_User> getAllUser();
 }

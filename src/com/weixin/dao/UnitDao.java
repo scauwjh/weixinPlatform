@@ -9,5 +9,5 @@ import com.weixin.domain.TB_Unit;
  */
 public interface UnitDao {
 	TB_Unit findByUnitID(Integer UnitID);
-	boolean saveOrUpdate(TB_Unit unit);
+	void saveOrUpdate(TB_Unit unit);
 }

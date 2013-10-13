@@ -8,9 +8,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.WeixinCouponDaoImpl;
+import com.weixin.daoimpl.CouponDaoImpl;
 import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_WeixinCoupon;
+import com.weixin.domain.TB_Coupon;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -19,12 +19,12 @@ import com.weixin.domain.TB_WeixinCoupon;
  *
  */
 public class CouponService {
-	private WeixinCouponDaoImpl couponDao = WeixinCouponDaoImpl.getInstance();
+	private CouponDaoImpl couponDao = CouponDaoImpl.getInstance();
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
 	public boolean addCoupon(JSONObject data,Integer unitID){
 		try{
-			TB_WeixinCoupon coupon = new TB_WeixinCoupon();
+			TB_Coupon coupon = new TB_Coupon();
 			coupon.setCouponID(data.getString("couponID"));
 			coupon.setCouponName(data.getString("couponName"));
 			coupon.setCreateTime(new Date());
@@ -46,7 +46,7 @@ public class CouponService {
 	public boolean update(JSONObject data, Integer unitID){
 		try{
 			String couponID = data.getString("couponID");
-			TB_WeixinCoupon coupon = couponDao.findByCouponIDandUnit(couponID, unitID);
+			TB_Coupon coupon = couponDao.findByCouponIDandUnit(couponID, unitID);
 			coupon.setCouponName(data.getString("couponName"));
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date startedDate = df.parse(data.getString("startedDate"));
@@ -62,7 +62,7 @@ public class CouponService {
 	}
 	
 	public JSONObject get(Integer unitID){
-		List<TB_WeixinCoupon> list = couponDao.findByUnit(unitID);
+		List<TB_Coupon> list = couponDao.findByUnit(unitID);
 		if(list==null){
 			return null;
 		}
@@ -70,7 +70,7 @@ public class CouponService {
 		JSONArray array = new JSONArray();
 		for(int i=0;i<list.size();i++){
 			JSONObject json = new JSONObject();
-			TB_WeixinCoupon coupon = list.get(i);
+			TB_Coupon coupon = list.get(i);
 			json.element("couponID", coupon.getCouponID());
 			json.element("couponName", coupon.getCouponName());
 			json.element("createTime", coupon.getCreateTime().toString());

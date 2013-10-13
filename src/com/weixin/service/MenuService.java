@@ -19,8 +19,8 @@ import com.weixin.domain.TB_WeixinKey;
  */
 public class MenuService {
 	
-	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	private WeixinKeyDaoImpl weixinKeyDao = WeixinKeyDaoImpl.getInstance();
+	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
 	private static String TOKEN = null;
 	private static String URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
@@ -67,6 +67,7 @@ public class MenuService {
 			if(key==null)continue;
 			JSONObject message = (JSONObject) tmpJson.get("message");
 			System.out.println(key+" "+message);
+			if(message==null)continue;
 			//保存key
 			TB_WeixinKey weixinKey = weixinKeyDao.findByKeyValueandUnit(key, unitID);
 			if(weixinKey==null){

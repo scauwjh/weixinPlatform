@@ -5,7 +5,7 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Hibernate映射文件的根元素 -->
 <hibernate-mapping package="com.weixin.domain">
-    <class name="TB_WeixinCoupon" table="tb_weixincoupon">
+    <class name="TB_Sources" table="tb_sources">
 		<!-- 使用只读缓存 -->
 	<!-- <cache usage="read-only"/>       -->  
 		<!-- 映射标识属性 -->
@@ -14,20 +14,11 @@
 			<generator class="identity"/>
 		</id>
 		
-		<!-- 映射普通属性 -->				
-		<property name="CouponID" column="CouponID" type="string" length="20" not-null="true"/>
+		<!-- 映射普通属性 -->		
+		<property name="PicMessage" column="PicMessage" type="string" length="1000" not-null="true"/>			
 		
-		<property name="CouponName" column="CouponName" type="string" length="20"/>
-		
-		<property name="Memo" column="Memo" type="string" length="1000"/>
-		
-		<property name="CreateTime" column="CreateTime" type="java.util.Date" not-null="true"/>
-		
-		<property name="StartedDate" column="StartedDate" type="java.util.Date"/>
-		
-		<property name="ExpiredDays" column="ExpiredDays" type="integer"/>
-		
+		<property name="UpdateTime" column="UpdateTime" type="java.util.Date" not-null="true"/>		
+    	
 		<many-to-one name="Unit" column="Unit" />
-		
     </class>
 </hibernate-mapping>

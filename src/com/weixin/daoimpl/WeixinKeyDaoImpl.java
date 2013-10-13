@@ -17,6 +17,7 @@ public class WeixinKeyDaoImpl implements WeixinKeyDao {
 		return weixinKeyDao;
 	}
 
+	@Override
 	public TB_WeixinKey findByKeyValueandUnit(String keyValue,Integer unitID) {
 		HbmDao.begin();
 		DetachedCriteria dc = DetachedCriteria.forClass(TB_WeixinKey.class)
@@ -28,17 +29,11 @@ public class WeixinKeyDaoImpl implements WeixinKeyDao {
 		return key;
 	}
 
-	public boolean saveOrUpdate(TB_WeixinKey key) {
-		try {
-			HbmDao.begin();
-			HbmDao.saveOrUpdate(key);
-			HbmDao.commit();
-			HbmDao.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			HbmDao.close();
-			return false;
-		}
+	@Override
+	public void saveOrUpdate(TB_WeixinKey key) {
+		HbmDao.begin();
+		HbmDao.saveOrUpdate(key);
+		HbmDao.commit();
+		HbmDao.close();
 	}
 }

@@ -1,5 +1,7 @@
 package com.weixin.service;
 
+import java.util.Date;
+
 import com.weixin.daoimpl.UnitDaoImpl;
 import com.weixin.domain.TB_Unit;
 
@@ -23,14 +25,20 @@ public class UnitService {
 //				e.printStackTrace();
 //				return null;
 //			}
-			JSONObject print = new JSONObject();
-			print.element("unitID", unit.getUnitID());
-			print.element("unitName", unit.getUnitName());
-			print.element("appid", unit.getAppid());
-			print.element("secret", unit.getSecret());
-			print.element("unitMemo", unit.getUnitMemo());
-			print.element("createTime", unit.getCreateTime().toString());
-			return print;
+			JSONObject json = new JSONObject();
+			json.element("unitID", unit.getUnitID());
+			json.element("unitName", unit.getUnitName());
+			json.element("appid", unit.getAppid());
+			json.element("secret", unit.getSecret());
+			json.element("introduction", unit.getIntroduction());
+			json.element("autoReply", unit.getAutoReply());
+			json.element("score", unit.getScore());
+			json.element("term", unit.getTerm());
+			json.element("welcomePage", unit.getWelcomePage());
+			json.element("menu", unit.getMenu());
+			json.element("updateTime", unit.getUpdateTime().toString());
+			json.element("createTime", unit.getCreateTime().toString());
+			return json;
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -45,10 +53,28 @@ public class UnitService {
 				unit = new TB_Unit();
 				unit.setUnitID(unitID);
 			}
-			unit.setUnitName(data.getString("unitName"));
 			unit.setAppid(data.getString("appid"));
+			unit.setAutoReply(data.getString("autoReply"));
+			unit.setIntroduction(data.getString("introduction"));
+			unit.setMenu(data.getString("menu"));
+			unit.setScore((Integer)data.get("score"));
 			unit.setSecret(data.getString("secret"));
-			unit.setUnitMemo(data.getString("unitMemo"));
+			unit.setTerm((Integer)data.get("term"));
+			unit.setUnitName(data.getString("unitName"));
+			unit.setUpdateTime(new Date());
+			unit.setWelcomePage((Integer)data.get("welcomePage"));
+			unitDao.saveOrUpdate(unit);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateAutoReply(Integer unitID, String autoReply){
+		try{
+			TB_Unit unit = unitDao.findByUnitID(unitID);
+			unit.setAutoReply(autoReply);
 			unitDao.saveOrUpdate(unit);
 			return true;
 		}catch(Exception e){

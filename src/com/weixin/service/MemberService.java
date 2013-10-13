@@ -6,9 +6,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.WeixinMemberDaoImpl;
+import com.weixin.daoimpl.MemberDaoImpl;
 import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_WeixinMember;
+import com.weixin.domain.TB_Member;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -18,16 +18,16 @@ import com.weixin.domain.TB_WeixinMember;
  */
 public class MemberService {
 	
-	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
+	private MemberDaoImpl memberDao = MemberDaoImpl.getInstance();
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
 	public boolean update(JSONObject data){
 		try{
 			String memberID = (String) data.get("memberID");
 			Integer unitID = (Integer) data.get("unitID");
-			TB_WeixinMember member = memberDao.findByMemberIDandUnit(memberID, unitID);
+			TB_Member member = memberDao.findByMemberIDandUnit(memberID, unitID);
 			if(member==null){
-				member = new TB_WeixinMember();
+				member = new TB_Member();
 				member.setMemberID(memberID);
 				TB_Unit unit = unitDao.findByUnitID(unitID);
 				member.setUnit(unit);
@@ -45,14 +45,14 @@ public class MemberService {
 	}
 	
 	public JSONObject get(Integer unitID){
-		List<TB_WeixinMember> member = memberDao.findByUnit(unitID);
+		List<TB_Member> member = memberDao.findByUnit(unitID);
 		if(member==null){
 			return null;
 		}
 		JSONArray array = new JSONArray();
 		for(int i=0;i<member.size();i++){
 			JSONObject json = new JSONObject();
-			TB_WeixinMember tmpTB = member.get(i);
+			TB_Member tmpTB = member.get(i);
 			json.element("coupon",tmpTB.getCoupon());
 			json.element("createTime", tmpTB.getCreateTime().toString());
 			json.element("ID", tmpTB.getID());

@@ -4,14 +4,12 @@ import com.weixin.basic.Weixin_Articles;
 import com.weixin.basic.Weixin_AssemblyXML;
 import com.weixin.daoimpl.UnitDaoImpl;
 import com.weixin.daoimpl.WeixinKeyDaoImpl;
-import com.weixin.daoimpl.WeixinMemberDaoImpl;
-import com.weixin.daoimpl.UnitMessageDaoImpl;
-import com.weixin.daoimpl.WeixinPicMessageDaoImpl;
+import com.weixin.daoimpl.MemberDaoImpl;
+import com.weixin.daoimpl.SourcesDaoImpl;
 import com.weixin.domain.TB_Unit;
 import com.weixin.domain.TB_WeixinKey;
-import com.weixin.domain.TB_WeixinMember;
-import com.weixin.domain.TB_UnitMessage;
-import com.weixin.domain.TB_WeixinPicMessage;
+import com.weixin.domain.TB_Member;
+import com.weixin.domain.TB_Sources;
 import com.weixin.service.AutoReplyService;
 
 import java.io.BufferedReader;
@@ -46,9 +44,8 @@ public class WeixinInterface extends HttpServlet {
 	
 	//各种dao的声明
 	private WeixinKeyDaoImpl keyDao = WeixinKeyDaoImpl.getInstance();
-	private UnitMessageDaoImpl messageDao = UnitMessageDaoImpl.getInstance();
-	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
-	private WeixinPicMessageDaoImpl picMessageDao = WeixinPicMessageDaoImpl.getInstance();
+	private MemberDaoImpl memberDao = MemberDaoImpl.getInstance();
+	private SourcesDaoImpl picMessageDao = SourcesDaoImpl.getInstance();
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
 	//各种参数的声明
@@ -61,7 +58,7 @@ public class WeixinInterface extends HttpServlet {
 	private String eventKey = null;//事件的key值，主要是click
 	private String recevidedContent = null;//接收到的数据
 	private String sentContent = null;//发送的的数据
-	private TB_UnitMessage unitMessage = null;//单位信息类
+	private TB_Unit unit = null;//单位
 	/**
 	 * doGet
 	 * @param HttpServletRequest request
@@ -83,10 +80,10 @@ public class WeixinInterface extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		//获取单位ID，new自动回复对象，查找单位信息
+		//获取单位ID，new自动回复对象，查找单位
 		unitID = Integer.parseInt(request.getParameter("id"));
 		autoReply = new AutoReplyService(unitID);
-		unitMessage = messageDao.findByUnit(unitID);
+		unit = unitDao.findByUnitID(unitID);
 		
 		//读取用户发送来的消息
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -118,9 +115,9 @@ public class WeixinInterface extends HttpServlet {
 		//绑定手机
 		else if (this.recevidedContent.matches("#[0-9]*#")) {
 			String[] spilt = this.recevidedContent.split("#");
-			TB_WeixinMember member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
+			TB_Member member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
 			if (member == null) {
-				member = new TB_WeixinMember();
+				member = new TB_Member();
 			}
 			member.setCreateTime(new Date());
 			TB_Unit unit = unitDao.findByUnitID(unitID);
@@ -138,7 +135,7 @@ public class WeixinInterface extends HttpServlet {
 		
 		//回复有误直接返回首页
 		else {
-			Integer welcomeID = unitMessage.getWelcomeMessage();
+			Integer welcomeID = unit.getWelcomePage();
 			sentContent = ambXML.picMsg(getPicMsgList(welcomeID),this.fromID,this.toID);
 			flag = true;
 		}
@@ -160,13 +157,13 @@ public class WeixinInterface extends HttpServlet {
 	private void subscribeAction(){
 		Integer score = 0;
 		Integer term = 0;
-		if (unitMessage != null) {
-			term = unitMessage.getTerm();
-			score = unitMessage.getScore();
+		if (unit != null) {
+			term = unit.getTerm();
+			score = unit.getScore();
 		}
-		TB_WeixinMember member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
+		TB_Member member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
 		if (member == null) {
-			member = new TB_WeixinMember();
+			member = new TB_Member();
 			TB_Unit unit = unitDao.findByUnitID(unitID);
 			member.setUnit(unit);
 			member.setOpenID(this.fromID);
@@ -186,7 +183,7 @@ public class WeixinInterface extends HttpServlet {
 		member.setTerm(term);
 		this.memberDao.saveOrUpdate(member);
 		//欢迎页面
-		Integer welcomeID = unitMessage.getWelcomeMessage();
+		Integer welcomeID = unit.getWelcomePage();
 		sentContent = ambXML.picMsg(getPicMsgList(welcomeID),this.fromID,this.toID);
 	}
 	
@@ -202,7 +199,7 @@ public class WeixinInterface extends HttpServlet {
 		JSONObject ret = JSONObject.fromObject(key.getMessage());
 		if(ret.getString("type").equals("picMsg")){
 			flag = true;
-			TB_WeixinPicMessage picMsg = picMessageDao.findByID((Integer)ret.get("picMsgID"));
+			TB_Sources picMsg = picMessageDao.findByID((Integer)ret.get("picMsgID"));
 			JSONObject json = JSONObject.fromObject(picMsg.getPicMessage());
 			sentContent = ambXML.jsonToPicMsg(json,this.fromID,this.toID);
 		}
@@ -220,7 +217,7 @@ public class WeixinInterface extends HttpServlet {
 	 * 再拼装list
 	 */
 	private List<Weixin_Articles> getPicMsgList(Integer welcomeID){
-		TB_WeixinPicMessage picMessage = picMessageDao.findByID(welcomeID);
+		TB_Sources picMessage = picMessageDao.findByID(welcomeID);
 		JSONObject picMsg = JSONObject.fromObject(picMessage.getPicMessage());
 		
 		List<Weixin_Articles> list = new LinkedList<Weixin_Articles>();

@@ -6,9 +6,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.WeixinPicMessageDaoImpl;
+import com.weixin.daoimpl.SourcesDaoImpl;
 import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_WeixinPicMessage;
+import com.weixin.domain.TB_Sources;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -18,18 +18,18 @@ import com.weixin.domain.TB_WeixinPicMessage;
  */
 public class SourcesService {
 	
-	private WeixinPicMessageDaoImpl sourcesDao = WeixinPicMessageDaoImpl.getInstance();
+	private SourcesDaoImpl sourcesDao = SourcesDaoImpl.getInstance();
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
 	public JSONObject get(Integer unitID){
 		try{
-			List<TB_WeixinPicMessage> list = sourcesDao.findByUnit(unitID);
+			List<TB_Sources> list = sourcesDao.findByUnit(unitID);
 			Integer num = 0;
 			JSONArray array = new JSONArray();
 			//遍历所有数据
 			for(int i=0;i<list.size();i++){
 				JSONObject json = new JSONObject();
-				TB_WeixinPicMessage message = list.get(i);
+				TB_Sources message = list.get(i);
 				json.element("ID", message.getID());
 				json.element("message", message.getPicMessage());
 				json.element("unitID", message.getUnit().getUnitID());
@@ -49,7 +49,7 @@ public class SourcesService {
 	
 	public boolean save(JSONObject json, Integer unitID){
 		try{
-			TB_WeixinPicMessage source = new TB_WeixinPicMessage();
+			TB_Sources source = new TB_Sources();
 			TB_Unit unit = unitDao.findByUnitID(unitID);
 			source.setUnit(unit);
 			String msg = json.getString("picMsg");

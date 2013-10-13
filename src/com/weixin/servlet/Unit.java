@@ -23,6 +23,7 @@ public class Unit extends HttpServlet {
 	
 	private UnitService unitService = new UnitService();
 	private PrintWriter out = null;
+	private Integer unitID = null;
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		doPost(request,response);
@@ -32,19 +33,21 @@ public class Unit extends HttpServlet {
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		//初始化out和unitID
 		out = response.getWriter();
+		unitID = (Integer)request.getSession().getAttribute("unitID");
 		String action = request.getParameter("action");
 		//单位管理
 		if(action.equals("get")){
 			unitMessage(request,response);
 		}
 		//更新（添加）单位信息
-		else if(action.equals("update")){
+		else if(action.equals("updateUM")){
 			updateUnit(request,response);
 		}
-		//删除单位
-		else if(action.equals("delete")){
-			
+		//更新自动回复
+		else if(action.equals("updateAR")){
+			updateAutoReply(request,response);
 		}
 	}
 	
@@ -63,6 +66,16 @@ public class Unit extends HttpServlet {
 		JSONObject print = unitService.get(unitID);
 		if(print!=null){
 			out.println(print);
+			return;
+		}
+		out.println("error");
+	}
+	
+	private void updateAutoReply(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String autoReply = request.getParameter("data");
+		boolean ret = unitService.updateAutoReply(unitID, autoReply);
+		if(ret){
+			out.println("ok");
 			return;
 		}
 		out.println("error");

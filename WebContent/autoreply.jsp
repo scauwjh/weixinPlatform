@@ -7,10 +7,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var json = null;
-	$.get("message?action=get",
+	$.get("unit?action=get",
 		function(data){
 			json = eval("("+data+")");
-			$("#main_container").text(JSON.stringify(json.message));
+			$("#main_container").text(JSON.stringify(json.autoReply));
 		}
 	);
 });

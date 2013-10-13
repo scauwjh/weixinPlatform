@@ -5,7 +5,7 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Hibernate映射文件的根元素 -->
 <hibernate-mapping package="com.weixin.domain">
-    <class name="TB_WeixinMember" table="tb_weixinmember">
+    <class name="TB_Member" table="tb_member">
 		<!-- 使用只读缓存 -->
 	<!-- <cache usage="read-only"/>       -->  
 		<!-- 映射标识属性 -->

@@ -2,7 +2,7 @@ package com.weixin.domain;
 
 import java.util.Date;
 
-public class TB_WeixinCoupon {
+public class TB_Coupon {
 	private Integer ID;
 	private String CouponID;
 	private String CouponName;
@@ -10,7 +10,7 @@ public class TB_WeixinCoupon {
 	private Date CreateTime = new Date();
 	private Date StartedDate;
 	private Integer ExpiredDays;//有效期，多少天
-	private TB_Unit unit;
+	private TB_Unit Unit;
 	
 	public String getCouponName() {
 		return this.CouponName;
@@ -69,10 +69,10 @@ public class TB_WeixinCoupon {
 	}
 
 	public TB_Unit getUnit() {
-		return unit;
+		return Unit;
 	}
 
 	public void setUnit(TB_Unit unit) {
-		this.unit = unit;
+		Unit = unit;
 	}
 }

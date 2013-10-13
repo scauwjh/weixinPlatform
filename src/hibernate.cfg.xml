@@ -35,11 +35,10 @@
 		<property name="hibernate.format_sql">false</property>
 		<property name="connection.characterEncoding">UTF-8</property> 
 		<mapping resource="com/weixin/domain/TB_User.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_WeixinCoupon.hbm.xml"/>
+		<mapping resource="com/weixin/domain/TB_Coupon.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_WeixinKey.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_WeixinMember.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_UnitMessage.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_WeixinPicMessage.hbm.xml"/>
+		<mapping resource="com/weixin/domain/TB_Member.hbm.xml"/>
+		<mapping resource="com/weixin/domain/TB_Sources.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_Unit.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

@@ -35,18 +35,11 @@ public class UnitDaoImpl implements UnitDao {
 	}
 
 	@Override
-	public boolean saveOrUpdate(TB_Unit unit) {
-		try{
-			HbmDao.begin();
-			HbmDao.saveOrUpdate(unit);
-			HbmDao.commit();
-			HbmDao.close();
-			return true;
-		}catch(Exception e){
-			e.printStackTrace();
-			HbmDao.close();
-			return false;
-		}
+	public void saveOrUpdate(TB_Unit unit) {
+		HbmDao.begin();
+		HbmDao.saveOrUpdate(unit);
+		HbmDao.commit();
+		HbmDao.close();
 	}
 	
 }

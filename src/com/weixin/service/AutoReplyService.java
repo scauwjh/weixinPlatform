@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.weixin.daoimpl.WeixinMemberDaoImpl;
-import com.weixin.domain.TB_WeixinMember;
+import com.weixin.daoimpl.MemberDaoImpl;
+import com.weixin.domain.TB_Member;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -28,10 +28,10 @@ public class AutoReplyService {
 	 * 	"message":"123456"
 	 * }
 	 */
-	private WeixinMemberDaoImpl memberDao = WeixinMemberDaoImpl.getInstance();
+	private MemberDaoImpl memberDao = MemberDaoImpl.getInstance();
 	
 	private Map<String,JSONObject> map = null;
-	private JSONObject unitMessage = null;
+	private JSONObject unit = null;
 	private JSONObject autoReply = null;
 	private JSONArray replyArray = null;
 	
@@ -42,8 +42,8 @@ public class AutoReplyService {
 	 */
 	public AutoReplyService(Integer unitID){
 		this.map = new HashMap<String,JSONObject>();
-		unitMessage = new MessageService().getMessage(unitID);
-		autoReply = JSONObject.fromObject(unitMessage.get("message"));
+		unit = new UnitService().get(unitID);
+		autoReply = JSONObject.fromObject(unit.get("autoReply"));
 		replyArray = JSONArray.fromObject(autoReply.get("message"));
 		ergodicJsonArray(replyArray);
 		addHint();
@@ -51,14 +51,14 @@ public class AutoReplyService {
 	
 	/**
 	 * @param array 自动回复的JSONArray
-	 * 拼装首页菜单
+	 * 封装首页菜单
 	 */
 	private String printMenu(JSONArray array){
 		String str = "";
 		for(int i=0;i<array.size();i++){
 			JSONObject json = JSONObject.fromObject(array.get(i));
 			String msg = json.getString("message");
-			str += msg+"\n\n";
+			str += msg+"\n";
 		}
 		return str;
 	}
@@ -125,28 +125,55 @@ public class AutoReplyService {
 	 */
 	public String autoReply(String key, String fromID, Integer unitID){
 		try{
-			String ret = null;
+			String ret = "";
 			JSONObject tmpJson = null;
-			if(key.equals("0")){
-				ret = printMenu(replyArray);
-			}else{
-				TB_WeixinMember member = memberDao.findByOpenIDandUnit(fromID, unitID);
-				String lastInput = member.getLastInput();
-				if(key.equals("0")||lastInput==null){
-					lastInput = "";
-				}
-				lastInput += key;
+			long maxTime = 300000;//5分钟
+			Date nowTime = new Date();
+			TB_Member member = memberDao.findByOpenIDandUnit(fromID, unitID);
+			Date lastTime = null;
+			try{
+				lastTime = member.getLastTime();
+			}catch(Exception e){
+				e.printStackTrace();
+				lastTime = new Date();
+			}
+			String lastInput = member.getLastInput();
+			//判断是否过期，清除保存
+			if(nowTime.getTime()-lastTime.getTime()>maxTime){
+				//清除保存
+				lastInput = "";
 				member.setLastInput(lastInput);
-				member.setLastTime(new Date());
+				member.setLastTime(nowTime);
 				memberDao.saveOrUpdate(member);
-				
-				tmpJson = map.get(lastInput);
+			}
+			if(key.equals("0")||lastInput==null){
+				ret += printMenu(replyArray);
+				//清除保存
+				lastInput = "";
+				member.setLastInput(lastInput);
+				member.setLastTime(nowTime);
+				memberDao.saveOrUpdate(member);
+			}else{
+				tmpJson = map.get(lastInput+key);
 				if(tmpJson==null){
 					ret = "您的输入有误\n";
 					ret += printMenu(replyArray);
-				}
-				else{
+					//清除保存
+					lastInput = "";
+					member.setLastInput(lastInput);
+					member.setLastTime(nowTime);
+					memberDao.saveOrUpdate(member);
+				}else{
 					ret = tmpJson.getString("message");
+					//判断是否含有子节点，有就对输入进行保存
+					String ifChild = tmpJson.getString("child");
+					if(ifChild.equals("1")){
+						//保存输入
+						lastInput += key;
+						member.setLastInput(lastInput);
+						member.setLastTime(nowTime);
+						memberDao.saveOrUpdate(member);
+					}
 				}
 			}
 			return ret;

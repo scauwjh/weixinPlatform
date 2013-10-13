@@ -18,7 +18,8 @@ public class UserDaoImpl implements UserDao {
 		}
 		return userDao;
 	}
-
+	
+	@Override
 	public TB_User findByUserAccountandPassword(String account, String password) {
 		HbmDao.begin();
 		DetachedCriteria dc = DetachedCriteria.forClass(TB_User.class)
@@ -29,21 +30,15 @@ public class UserDaoImpl implements UserDao {
 		HbmDao.close();
 		return user;
 	}
-
-	public boolean saveOrUpdate(TB_User user) {
-		try {
-			HbmDao.begin();
-			HbmDao.saveOrUpdate(user);
-			HbmDao.commit();
-			HbmDao.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			HbmDao.close();
-			return false;
-		}
+	
+	@Override
+	public void saveOrUpdate(TB_User user) {
+		HbmDao.begin();
+		HbmDao.saveOrUpdate(user);
+		HbmDao.commit();
+		HbmDao.close();
 	}
-
+	
 	@Override
 	public List<TB_User> getAllUser() {
 		HbmDao.begin();

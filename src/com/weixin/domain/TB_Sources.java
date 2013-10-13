@@ -2,11 +2,11 @@ package com.weixin.domain;
 
 import java.util.Date;
 
-public class TB_WeixinPicMessage {
+public class TB_Sources {
 	private Integer ID;
 	private String PicMessage = "";
 	private Date UpdateTime = new Date();
-	private TB_Unit unit;
+	private TB_Unit Unit;
 	
 	public Integer getID() {
 		return this.ID;
@@ -33,11 +33,10 @@ public class TB_WeixinPicMessage {
 	}
 
 	public TB_Unit getUnit() {
-		return unit;
+		return Unit;
 	}
 
 	public void setUnit(TB_Unit unit) {
-		this.unit = unit;
+		Unit = unit;
 	}
-	
 }

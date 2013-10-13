@@ -7,7 +7,7 @@ public class TB_WeixinKey {
 	private String KeyValue;
 	private String Message;
 	private Date UpdateTime = new Date();
-	private TB_Unit unit;
+	private TB_Unit Unit;
 	
 	public Integer getID() {
 		return this.ID;
@@ -42,10 +42,10 @@ public class TB_WeixinKey {
 	}
 
 	public TB_Unit getUnit() {
-		return unit;
+		return Unit;
 	}
 
 	public void setUnit(TB_Unit unit) {
-		this.unit = unit;
+		Unit = unit;
 	}
 }
