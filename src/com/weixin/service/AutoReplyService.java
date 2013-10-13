@@ -58,7 +58,10 @@ public class AutoReplyService {
 		for(int i=0;i<array.size();i++){
 			JSONObject json = JSONObject.fromObject(array.get(i));
 			String msg = json.getString("message");
-			str += msg+"\n";
+			str += msg;
+			if(i+1<array.size()){
+				str += "\n";
+			}
 		}
 		return str;
 	}
