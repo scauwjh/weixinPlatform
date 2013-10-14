@@ -32,7 +32,7 @@ public class CouponDaoImpl implements CouponDao {
 		HbmDao.begin();
 		String hql = "from TB_Coupon tb where tb.Unit.UnitID = " + unitID;
 		@SuppressWarnings("unchecked")
-		List<TB_Coupon> coupon = HbmDao.getSession().createQuery(hql).list();
+		List<TB_Coupon> coupon = HbmDao.createQuery(hql).list();
 		HbmDao.commit();
 		HbmDao.close();
 		if (coupon.size() > 0)

@@ -28,8 +28,10 @@
 		if(error!=null){
 			out.println("<script>alert('"+error+"');top.location='login.jsp';</script>");
 		}
-		String  realpath  =  request.getServletContext().getRealPath("/");
-		System.out.println(realpath);
+		else{
+			String  realpath  =  request.getServletContext().getRealPath("/");
+			System.out.println(realpath);
+		}
 	%>
 	<form method="post" action="login" id="loginForm">
 		<input type="text" id="user" name="account" value=""><br>

@@ -68,7 +68,6 @@ public class Weixin_AssemblyXML {
 		}
 		print += "</Articles>"
 				+ "</xml>";
-
 		return print;
 	}
 	

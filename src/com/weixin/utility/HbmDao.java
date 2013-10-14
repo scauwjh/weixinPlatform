@@ -4,12 +4,14 @@ package com.weixin.utility;
 import java.io.Serializable;
 import java.util.List;
 
+
+
 /* hibernate */
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-//import org.hibernate.service.ServiceRegistry;
-//import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import org.hibernate.Session;
 import org.hibernate.Criteria;
@@ -76,18 +78,18 @@ public class HbmDao
         try
         {
             // 为了适配 hibernate 4 的写法...
-//            Configuration cfg = new Configuration()
-//                .configure();
-//            ServiceRegistry sr = new ServiceRegistryBuilder()
-//                .applySettings(
-//                    cfg.getProperties()
-//                ).buildServiceRegistry();
-//            this.sf = cfg.buildSessionFactory(sr);
+            Configuration cfg = new Configuration()
+                .configure();
+            ServiceRegistry sr = new ServiceRegistryBuilder()
+                .applySettings(
+                    cfg.getProperties()
+                ).buildServiceRegistry();
+            this.sf = cfg.buildSessionFactory(sr);
 
             // hibernate 3 及以下
-            this.sf = new Configuration()
-                .configure()
-                .buildSessionFactory();
+//            this.sf = new Configuration()
+//                .configure()
+//                .buildSessionFactory();
 
             return;
         }

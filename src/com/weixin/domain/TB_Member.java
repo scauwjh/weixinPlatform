@@ -11,8 +11,8 @@ public class TB_Member {
 	private Integer Term = 0;//最后获取积分的期数
 	private String Coupon = "";//优惠券JSON数组，含优惠券ID和获取时间
 	private String Telephone = "";//绑定的电话号码
-	private String LastInput;//记忆用户上一次输入的值
-	private Date LastTime;//记忆用户上一次输入的时间
+	private String LastInput = "";//记忆用户上一次输入的值
+	private Date LastTime = new Date();//记忆用户上一次输入的时间
 	private TB_Unit Unit;//所属单位
 	
 	public String getTelephone() {

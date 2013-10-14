@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 	public List<TB_User> getAllUser() {
 		HbmDao.begin();
 		@SuppressWarnings("unchecked")
-		List<TB_User> list = HbmDao.getSession().createQuery("from TB_User tb order by tb.UserID").list();
+		List<TB_User> list = HbmDao.createQuery("from TB_User tb order by tb.UserID").list();
 		HbmDao.commit();
 		HbmDao.close();
 		if(list.size()>0)

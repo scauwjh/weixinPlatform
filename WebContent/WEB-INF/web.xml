@@ -39,15 +39,6 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>AutoReply</servlet-name>
-    <servlet-class>com.weixin.servlet.AutoReply</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AutoReply</servlet-name>
-    <url-pattern>/autoreply</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
     <servlet-name>Sources</servlet-name>
     <servlet-class>com.weixin.servlet.Sources</servlet-class>
   </servlet>
@@ -99,6 +90,15 @@
   <servlet-mapping>
     <servlet-name>Unit</servlet-name>
     <url-pattern>/unit</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>FileServlet</servlet-name>
+    <servlet-class>com.weixin.servlet.FileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileServlet</servlet-name>
+    <url-pattern>/fileservlet</url-pattern>
   </servlet-mapping>
   <!-- end servlet -->
   

@@ -1,31 +1,19 @@
 package com.weixin.servlet;
 
-import com.weixin.basic.Weixin_Articles;
-import com.weixin.basic.Weixin_AssemblyXML;
-import com.weixin.daoimpl.UnitDaoImpl;
-import com.weixin.daoimpl.WeixinKeyDaoImpl;
-import com.weixin.daoimpl.MemberDaoImpl;
-import com.weixin.daoimpl.SourcesDaoImpl;
 import com.weixin.domain.TB_Unit;
-import com.weixin.domain.TB_WeixinKey;
-import com.weixin.domain.TB_Member;
-import com.weixin.domain.TB_Sources;
 import com.weixin.service.AutoReplyService;
+import com.weixin.service.WeixinInterfaceService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -42,14 +30,8 @@ import net.sf.json.JSONObject;
 public class WeixinInterface extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	//各种dao的声明
-	private WeixinKeyDaoImpl keyDao = WeixinKeyDaoImpl.getInstance();
-	private MemberDaoImpl memberDao = MemberDaoImpl.getInstance();
-	private SourcesDaoImpl picMessageDao = SourcesDaoImpl.getInstance();
-	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
-	
-	//各种参数的声明
-	private Weixin_AssemblyXML ambXML = new Weixin_AssemblyXML();
+	//各种声明
+	private WeixinInterfaceService weixinInterface = new WeixinInterfaceService();
 	private AutoReplyService autoReply = null;//自动回复service对象，带参构造
 	private Integer unitID = null;//单位id
 	private String fromID = null;//发送者，用户的openid
@@ -83,7 +65,7 @@ public class WeixinInterface extends HttpServlet {
 		//获取单位ID，new自动回复对象，查找单位
 		unitID = Integer.parseInt(request.getParameter("id"));
 		autoReply = new AutoReplyService(unitID);
-		unit = unitDao.findByUnitID(unitID);
+		unit = weixinInterface.getUnit(unitID);
 		
 		//读取用户发送来的消息
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -102,12 +84,16 @@ public class WeixinInterface extends HttpServlet {
 		if (this.event != null) {
 			//订阅事件处理
 			if (this.event.equals("subscribe")) {
-				subscribeAction();
+				sentContent = weixinInterface.subscribeAction(unitID,this.fromID,this.toID);
 				flag = true;
 			} 
 			//click事件处理
 			else {
-				flag = clickAction();
+				JSONObject tmpJson = weixinInterface.clickAction(unitID,this.eventKey,fromID,toID);
+				if(tmpJson.getString("flag").equals("1")){
+					flag = true;
+				}
+				sentContent = tmpJson.getString("ret");
 			}
 
 		}
@@ -115,28 +101,23 @@ public class WeixinInterface extends HttpServlet {
 		//绑定手机
 		else if (this.recevidedContent.matches("#[0-9]*#")) {
 			String[] spilt = this.recevidedContent.split("#");
-			TB_Member member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
-			if (member == null) {
-				member = new TB_Member();
+			boolean ret = weixinInterface.boundTelephone(unitID, fromID, spilt[1]);
+			if(ret){
+				sentContent = "您已经成功绑定手机号码";
+			}else{
+				sentContent = "绑定失败";
 			}
-			member.setCreateTime(new Date());
-			TB_Unit unit = unitDao.findByUnitID(unitID);
-			member.setUnit(unit);
-			member.setOpenID(this.fromID);
-			member.setTelephone(spilt[1]);
-			this.memberDao.saveOrUpdate(member);
-			sentContent = "您已经成功绑定了手机号码";
 		} 
 		
 		//功能选择
 		else if (this.recevidedContent.matches(" *[0-9] *")) {
-			sentContent = autoReply.autoReply(this.recevidedContent,this.fromID,this.unitID);
+			sentContent = autoReply.autoReply(recevidedContent,fromID,unitID);
 		}
 		
 		//回复有误直接返回首页
 		else {
 			Integer welcomeID = unit.getWelcomePage();
-			sentContent = ambXML.picMsg(getPicMsgList(welcomeID),this.fromID,this.toID);
+			sentContent = weixinInterface.getMainPage(welcomeID, fromID, toID);
 			flag = true;
 		}
 		
@@ -147,100 +128,14 @@ public class WeixinInterface extends HttpServlet {
 		}
 		else{
 			//文字消息尚未封装，需要进行封装
-			out.println(ambXML.fontMsg(sentContent,this.fromID,this.toID));
+			String print = weixinInterface.getFontMsg(sentContent,this.fromID,this.toID);
+			out.println(print);
 		}
-	}
-	
-	/**
-	 * 订阅处理
-	 */
-	private void subscribeAction(){
-		Integer score = 0;
-		Integer term = 0;
-		if (unit != null) {
-			term = unit.getTerm();
-			score = unit.getScore();
-		}
-		TB_Member member = this.memberDao.findByOpenIDandUnit(this.fromID, unitID);
-		if (member == null) {
-			member = new TB_Member();
-			TB_Unit unit = unitDao.findByUnitID(unitID);
-			member.setUnit(unit);
-			member.setOpenID(this.fromID);
-			boolean tmpFlag = false;
-			String memberID = "";
-			while (!tmpFlag) {
-				for (int i = 0; i < 7; i++) {
-					memberID = memberID+ Integer.toString((int) (Math.random() * 10));
-				}
-				if (this.memberDao.findByMemberIDandUnit(memberID,unitID) == null)
-					tmpFlag = true;
-			}
-			member.setMemberID(memberID);
-			this.memberDao.saveOrUpdate(member);
-		}
-		member.setScore(member.getScore()+score);
-		member.setTerm(term);
-		this.memberDao.saveOrUpdate(member);
-		//欢迎页面
-		Integer welcomeID = unit.getWelcomePage();
-		sentContent = ambXML.picMsg(getPicMsgList(welcomeID),this.fromID,this.toID);
-	}
-	
-	/**
-	 * 点击处理
-	 * return boolean flag
-	 * true为图文消息，false为文字消息
-	 */
-	private boolean clickAction(){
-		boolean flag = false;
-		String keyValue = this.eventKey;
-		TB_WeixinKey key = this.keyDao.findByKeyValueandUnit(keyValue, unitID);
-		JSONObject ret = JSONObject.fromObject(key.getMessage());
-		if(ret.getString("type").equals("picMsg")){
-			flag = true;
-			TB_Sources picMsg = picMessageDao.findByID((Integer)ret.get("picMsgID"));
-			JSONObject json = JSONObject.fromObject(picMsg.getPicMessage());
-			sentContent = ambXML.jsonToPicMsg(json,this.fromID,this.toID);
-		}
-		else sentContent = ret.getString("msg");
-		return flag;
-	}
-	
-	/**
-	 * 获取图文信息的list
-	 * @param welcomeID
-	 * @return
-	 * 
-	 * 由数据库中的welcomeMessage(这里是welcomeID)
-	 * 读取图文消息表获取数据
-	 * 再拼装list
-	 */
-	private List<Weixin_Articles> getPicMsgList(Integer welcomeID){
-		TB_Sources picMessage = picMessageDao.findByID(welcomeID);
-		JSONObject picMsg = JSONObject.fromObject(picMessage.getPicMessage());
-		
-		List<Weixin_Articles> list = new LinkedList<Weixin_Articles>();
-		Integer num = (Integer)picMsg.get("picNum");
-		JSONArray picDesc = JSONArray.fromObject(picMsg.getString("picDesc"));
-		JSONArray picTitle = JSONArray.fromObject(picMsg.getString("picTitle"));
-		JSONArray picUrl = JSONArray.fromObject(picMsg.getString("picUrl"));
-		JSONArray jumpUrl = JSONArray.fromObject(picMsg.getString("jumpUrl"));
-		for(int i=0;i<num;i++){
-			Weixin_Articles articles = new Weixin_Articles();
-			articles.setDes(picDesc.getString(i));
-			articles.setTitle(picTitle.getString(i));
-			articles.setPicUrl(picUrl.getString(i));
-			articles.setUrl(jumpUrl.getString(i));
-			list.add(articles);
-		}
-		return list;
 	}
 	
 	/**
 	 * 获取各种id（参数）
 	 * @param content
-	 * 
 	 * 由用户发送过来的消息获取用户的openid和公众号的id
 	 * 以及各种事件、内容
 	 */

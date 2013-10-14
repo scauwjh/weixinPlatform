@@ -24,7 +24,7 @@ public class SourcesDaoImpl implements SourcesDao {
 		HbmDao.begin();
 		String hql = "from TB_Sources tb where tb.Unit.UnitID = "+unitID;
 		@SuppressWarnings("unchecked")
-		List<TB_Sources> list = HbmDao.getSession().createQuery(hql).list();
+		List<TB_Sources> list = HbmDao.createQuery(hql).list();
 		HbmDao.commit();
 		HbmDao.close();
 		if(list.size()>0){

@@ -57,7 +57,7 @@ public class MemberDaoImpl implements MemberDao {
 		HbmDao.begin();
 		String hql = "from TB_Member tb where tb.Unit.UnitID = " + unitID;
 		@SuppressWarnings("unchecked")
-		List<TB_Member> member = HbmDao.getSession().createQuery(hql).list();
+		List<TB_Member> member = HbmDao.createQuery(hql).list();
 		HbmDao.commit();
 		HbmDao.close();
 		if (member.size() > 0) {
