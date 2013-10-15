@@ -2,16 +2,17 @@
 	width:870px;
 	min-height:500px;
 	margin:20px 0;
+	
 }
 .main{
 	width:860px;
 	min-height:400px;
 	border:1px solid rgb(211,211,211);
+	overflow:auto;
 }
 .boxp{
 	margin:5px 20px;
 	font-size:25px;
-	color:#636363;
 }
 .btn{
 	height:40px;
@@ -73,10 +74,12 @@
 	cursor:pointer;
 	line-height:40px;
 	display:inline-block;
+	color: #000;
 }
 .list_item a{
 	margin-left:10px;
 	line-height:40px;
+	color: #333;
 }
 .item_click{
 	background-color:rgb(107,176,94);
@@ -170,8 +173,6 @@
 */
 .right_url{
 	height:300px;
-	//margin:20px auto;
-	//border:1px solid black;
 	padding:0 120px;
 	display:none;
 }
@@ -326,3 +327,35 @@
 	color:#000;
 	cursor:pointer;
 }
+/* 
+	Right_info
+ */
+ .right_info{
+ 	width: 450px;
+	height:300px;
+	margin:20px auto;
+	border:1px solid #cfcfcf;
+	display:none;
+ }
+ #info_msg{
+ 	height: 40px;
+ 	width: 100%;
+ 	background-color:rgb(240,240,240);
+ 	border-bottom: 1px solid #cfcfcf;
+ 	line-height: 40px;
+ 	font-size: 14px;
+ 	color: #666;
+ 	text-indent: 10px;
+ }
+ #info_div{
+ 	width: 400px;
+ 	height: 150px;
+ 	margin: 0 auto;
+ 	font-size: 14px;
+ 	line-height: 16px;
+ 	white-space: pre-wrap;
+ 	word-wrap: break-word;
+ 	padding-top: 20px;
+ 	color: #5ba10e;
+ 	letter-spacing: 1px;
+ }

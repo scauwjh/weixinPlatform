@@ -22,8 +22,8 @@
 			<div id="main_content">
 			</div>
 			<div class="page">
-				<a href='javascript:;' id='back'>上一页</a>
-				<a href='javascript:;' id='next'>下一页</a>
+				<a href="javascript:;" id="back">上一页</a>
+				<a href="javascript:;" id="next">下一页</a>
 			</div>
 		</div>
 	</div>

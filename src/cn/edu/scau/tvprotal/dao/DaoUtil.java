@@ -1,11 +1,8 @@
-package com.weixin.utility;
+package cn.edu.scau.tvprotal.dao;
 
 /* base */
 import java.io.Serializable;
 import java.util.List;
-
-
-
 
 
 
@@ -57,7 +54,7 @@ import org.apache.log4j.Logger;
  * 切记要提交并且关闭会话, 否则出现内存溢出, 读写失败什么的概不负责.
  * @version 1.2.1
  */
-public class HbmDao
+public class DaoUtil
 {
   // SESSION MANAGEMENT
     private SessionFactory sf = null;
@@ -74,10 +71,10 @@ public class HbmDao
     // 据传这是出自 Google 工程师之手的 Singleton 写法...
     private static class Singleton
     {
-        private static HbmDao instance = new HbmDao();
+        private static DaoUtil instance = new DaoUtil();
     }
 
-    private HbmDao()
+    private DaoUtil()
     {
         try
         {
@@ -91,9 +88,9 @@ public class HbmDao
             this.sf = cfg.buildSessionFactory(sr);
 
             // hibernate 3 及以下
-//            this.sf = new Configuration()
-//                .configure()
-//                .buildSessionFactory();
+            //this.sf = new Configuration()
+                //.configure()
+                //.buildSessionFactory();
 
             return;
         }

@@ -71,22 +71,22 @@ public class CouponService {
 		for(int i=0;i<list.size();i++){
 			JSONObject json = new JSONObject();
 			TB_Coupon coupon = list.get(i);
-			json.element("couponID", coupon.getCouponID());
-			json.element("couponName", coupon.getCouponName());
-			json.element("createTime", coupon.getCreateTime().toString());
-			json.element("expiredDate", coupon.getExpiredDays());
-			json.element("ID", coupon.getID());
-			json.element("memo", coupon.getMemo());
-			json.element("startedDate", coupon.getStartedDate().toString());
-			json.element("unitID", coupon.getUnit().getUnitID());
+			json.put("couponID", coupon.getCouponID());
+			json.put("couponName", coupon.getCouponName());
+			json.put("createTime", coupon.getCreateTime().toString());
+			json.put("expiredDate", coupon.getExpiredDays());
+			json.put("ID", coupon.getID());
+			json.put("memo", coupon.getMemo());
+			json.put("startedDate", coupon.getStartedDate().toString());
+			json.put("unitID", coupon.getUnit().getUnitID());
 			//session没有这东西
-			//json.element("unitName", coupon.getUnit().getUnitName());
+			//json.put("unitName", coupon.getUnit().getUnitName());
 			array.add(json);
 			num++;
 		}
 		JSONObject print = new JSONObject();
-		print.element("coupon", array);
-		print.element("couponNum", num);
+		print.put("coupon", array);
+		print.put("couponNum", num);
 		return print;
 	}
 }

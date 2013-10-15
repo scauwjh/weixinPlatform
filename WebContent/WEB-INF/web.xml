@@ -84,6 +84,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>Integral</servlet-name>
+    <servlet-class>com.weixin.servlet.Integral</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Integral</servlet-name>
+    <url-pattern>/integral</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>Unit</servlet-name>
     <servlet-class>com.weixin.servlet.Unit</servlet-class>
   </servlet>
@@ -116,7 +125,22 @@
   	
   	<filter-mapping>
   	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/head.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/foot.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
   	    <url-pattern>/coupon.jsp</url-pattern>
+  	</filter-mapping>
+  	
+  	<filter-mapping>
+  	    <filter-name>LoginFilter</filter-name>
+  	    <url-pattern>/integral.jsp</url-pattern>
   	</filter-mapping>
   	
   	<filter-mapping>

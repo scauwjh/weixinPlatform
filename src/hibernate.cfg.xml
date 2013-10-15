@@ -35,14 +35,18 @@
 		<property name="hibernate.format_sql">true</property>
 		<property name="connection.characterEncoding">UTF-8</property> 
 
-        <!-- authorize -->
         <!-- @author=wjh -->
-        <mapping resource="com/weixin/domain/TB_User.hbm.xml"/>
+        <mapping resource="com/weixin/domain/TB_Unit.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_Coupon.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_WeixinKey.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_Member.hbm.xml"/>
 		<mapping resource="com/weixin/domain/TB_Sources.hbm.xml"/>
-		<mapping resource="com/weixin/domain/TB_Unit.hbm.xml"/>
-
+		
+		<!-- authorize -->
+        <!-- @author=galin -->
+        <mapping resource="cn/edu/scau/tvprotal/dao/authorize/User.hbm.xml" />
+        <mapping resource="cn/edu/scau/tvprotal/dao/authorize/Role.hbm.xml" />
+        <mapping resource="cn/edu/scau/tvprotal/dao/authorize/Organization.hbm.xml" />
+        
 	</session-factory>
 </hibernate-configuration>

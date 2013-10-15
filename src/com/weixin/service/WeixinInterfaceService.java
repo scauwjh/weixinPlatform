@@ -61,12 +61,12 @@ public class WeixinInterfaceService {
 			TB_Sources picMsg = sourcesDao.findByID((Integer)json.get("picMsgID"));
 			JSONObject tmpJson = JSONObject.fromObject(picMsg.getPicMessage());
 			String ret = ambXML.jsonToPicMsg(tmpJson,fromID,toID);
-			retJson.element("flag", "1");
-			retJson.element("ret", ret);
+			retJson.put("flag", "1");
+			retJson.put("ret", ret);
 		} else{
 			String ret = retJson.getString("msg");
-			retJson.element("flag", "0");
-			retJson.element("ret", ret);
+			retJson.put("flag", "0");
+			retJson.put("ret", ret);
 		}
 		return retJson;
 	}

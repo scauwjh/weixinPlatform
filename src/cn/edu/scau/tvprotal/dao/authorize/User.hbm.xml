@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.edu.scau.tvprotal.dao.authorize">
+    <class name="User" table="authorize_user">
+        <id	name="id" type="long" column="id">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="name" type="string" index="idx_user_name" unique="true" not-null="true"/>
+
+        <property name="enabled" type="boolean" />
+        <property name="salt" type="binary" length="8"/>
+        <property name="pass" type="binary" length="16" />
+
+        <many-to-one name="role" class="Role" column="role_id" />
+        <many-to-one name="organization" class="Organization" column="organ_id" />
+
+        <!--
+        <property name="role" type="string" column="authorize_role" />
+        <property name="group" type="string" column="authorize_group" />
+        -->
+    </class>
+</hibernate-mapping>

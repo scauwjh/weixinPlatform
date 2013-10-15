@@ -61,7 +61,7 @@ a{
  .left_menu li{
  	width:165px;
  	height:30px;
- 	text-align: center;
+ 	
  	line-height:30px;
 	height: 29px;
 	margin-top:8px;
@@ -75,12 +75,22 @@ a{
  	color: #F6F949;
  }
  .left_nav_selected{
+ 	text-align: center;
  	background: url("../images/left_nav.jpg") no-repeat 5px -30px;
  }
  .left_nav{
+ 	text-align: center;
  	background: url("../images/left_nav.jpg") no-repeat 5px 3px;
  }
- 
+ .child_nav{
+ 	display:none;
+ 	text-align:right;
+ 	margin-left:-20px;
+ }
+ .child_nav a{
+ 	color:#5ba10e;
+ 	font-size:13px;
+ }
  
 
 /* header */

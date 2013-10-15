@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.edu.scau.tvprotal.dao.authorize">
+    <class name="Organization" table="authorize_organ">
+        <id	name="id" type="long" column="id">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="name" type="string" index="idx_organ_name" unique="true" not-null="true" />
+        <property name="description" type="string" />
+    </class>
+</hibernate-mapping>

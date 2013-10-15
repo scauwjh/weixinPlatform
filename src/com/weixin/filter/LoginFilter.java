@@ -29,7 +29,7 @@ public class LoginFilter implements Filter {
 		if (userID == null) {
 			String error = "请先登录";
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("login.jsp")
+			request.getRequestDispatcher("home.jsp")
 					.forward(request, response);
 			return;
 		}

@@ -52,6 +52,11 @@
 								</a>
 							</div>
 						</div>
+						<div class="right_info">
+							<p id="info_msg">订阅者点击该子菜单会跳转至以下链接:</p>
+							<div id="info_div"></div>
+							<button onclick="turn('nav')" class="btn" style="margin-left:180px;">编辑</button>
+						</div>
 						<div class="right_url">	
 							<p>订阅者点击该子菜单会跳到以下链接</p>
 							<div class="input_div">
@@ -78,27 +83,27 @@
 								</div>
 							</div>
 						</div>
-						<div id="dialog-add" title="添加子菜单" ><div class="send_msg" id="send_msg"></div>
+						<div id="dialog-add" title="添加子菜单" style="display:none;"><div class="send_msg" id="send_msg"></div>
 								<div class="input_div">
 									<input type="text" class="input_url" id="input_name" placeholder="输入名称"/>
 								</div>
 						</div>
-						<div id="dialog-del" title="删除菜单" ><div class="send_msg" id="send_msg"></div><center>确定删除？</center></div>
-						<div id="dialog-mod" title="修改菜单" ><div class="send_msg" id="send_msg"></div>
+						<div id="dialog-del" title="删除菜单" style="display:none;"><div class="send_msg" id="send_msg"></div><center>确定删除？</center></div>
+						<div id="dialog-mod" title="修改菜单" style="display:none;"><div class="send_msg" id="send_msg"></div>
 								<div class="input_div">
 									<input type="text" class="input_url" id="input_name" placeholder="输入名称"/>
 								</div>
 						</div>
-						<div id="dialog-form" title="创建菜单" ><div class="send_msg" id="send_msg"></div>
+						<div id="dialog-form" title="创建菜单" style="display:none;"><div class="send_msg" id="send_msg"></div>
 								<div class="input_div">
 									<input type="text" class="input_url" id="input_name" placeholder="输入名称"/>
 								</div>
 						</div>
-						<div id="dialog-lang" title="语言" >lang<br>sadasdasd</div>
-						<div id="dialog-pic" title="图片" >pic</div>
-						<div id="dialog-video" title="视频" >video</div>
-						<div id="dialog-pictxt" title="图文" >pictxt</div>
-						<div id="dialog-confirm" title="保存修改" ><div class="send_msg" id="send_msg"></div><center>确定保存修改？</center></div>
+						<div id="dialog-lang" title="语言" style="display:none;">lang<br>sadasdasd</div>
+						<div id="dialog-pic" title="图片" style="display:none;">pic</div>
+						<div id="dialog-video" title="视频" style="display:none;">video</div>
+						<div id="dialog-pictxt" title="图文" style="display:none;">pictxt</div>
+						<div id="dialog-confirm" title="保存修改" style="display:none;"><div class="send_msg" id="send_msg"></div><center>确定保存修改？</center></div>
 					</div>
 				</div>
 			</div>

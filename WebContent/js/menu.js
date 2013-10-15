@@ -271,16 +271,19 @@ function left_turn() { //控制Left_list
 }
 
 function turn(temp, temp_id) { //控制Right隐藏div
-	$(".right_nav,.right_url,.right_message").hide();
+	$(".right_nav,.right_url,.right_message,.right_info").hide();
 	if (temp == "nav") {
 		$(".right_nav").show();
-		$("#nav_id").val(temp_id);
 	} else if (temp == "back") {
-		$(".right_nav").show();
+		$(".right_info").show();
 	} else if (temp == "url") {
 		$(".right_url").show();
 	} else if (temp == "message") {
 		$(".right_message").show();
+	} else if (temp == "info"){
+		$(".right_info").show();
+		$("#nav_id").val(temp_id);
+		pushinfo();
 	}
 }
 
@@ -293,7 +296,7 @@ function init() {
 	for (var i = 0; i < json.button.length; i++) {
 		$content = $("#clone").clone();
 		$content.css("display", "block").attr("id", json.button[i].id);
-		$content.attr("onclick", "turn('nav','" + json.button[i].id + "')").children("a").html(json.button[i].name);
+		$content.attr("onclick", "turn('info','" + json.button[i].id + "')").children("a").html(json.button[i].name);
 		$content.find("a").eq(1).attr("onclick", "open_dialog('add','" + json.button[i].id + "')").end().eq(2).attr("onclick", "open_dialog('del','" + json.button[i].id + "')").end().eq(3).attr("onclick", "open_dialog('mod','" + json.button[i].id + "')");
 		$(".left_list").append($content);
 		if (json.button[i].sub_button) {
@@ -301,7 +304,7 @@ function init() {
 			for (var j = 0; j < json.button[i].sub_button.length; j++) {
 				$content = $("#clone").clone();
 				$content.css("display", "block").attr("id", json.button[i].sub_button[j].id);
-				$content.attr("onclick", "turn('nav','" + json.button[i].sub_button[j].id + "')").children("a").html(json.button[i].sub_button[j].name);
+				$content.attr("onclick", "turn('info','" + json.button[i].sub_button[j].id + "')").children("a").html(json.button[i].sub_button[j].name);
 				$content.find("a").eq(0).prepend("&bull;&nbsp;").end().eq(2).attr("onclick", "open_dialog('del','" + json.button[i].sub_button[j].id + "')").end().eq(3).attr("onclick", "open_dialog('mod','" + json.button[i].sub_button[j].id + "')");
 				$content.find(".item_add").css("background", "none");
 				$(".left_list").append($content);
@@ -312,7 +315,7 @@ function init() {
 }
 
 function new_id() {
-	var tag = new Array("1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+	var tag = new Array("1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0","0","0","0","0","0","0");
 	for (var i = 0; i < json.button.length; i++) {
 		tag[json.button[i].id] = 1;
 		if (json.button[i].sub_button) {
@@ -402,6 +405,9 @@ function post(temp) {
 	}
 	$("#box_msg").val("");
 	$("#input_url").val("");
+	alert("修改成功");
+	turn("back");
+	pushinfo()
 	//alert(JSON.stringify(json));
 	//alert($("#nav_id").val());
 	/*
@@ -414,4 +420,41 @@ function post(temp) {
 		alert(data);
 	});
 	*/
+}
+function pushinfo(){
+	if(!json.button)
+		return;
+	var tag_id = $("#nav_id").val();
+	for (var i = 0; i < json.button.length; i++) {
+		if (json.button[i].id == tag_id) {
+			if(json.button[i].type == "view"){
+				$("#info_msg").html("订阅者点击该子菜单会跳转至以下链接：");
+				$("#info_div").empty()
+					.append("<a target='_break' href=''></a>")
+					.children("a").attr("href",json.button[i].url)
+					.html(json.button[i].url);
+			} else if(json.button[i].type == "click"){
+				$("#info_msg").hmtl("订阅者点击该子菜单会推送以下内容：");
+				$("#info_div").html(json.button[i].message.msg);
+			}
+			break;
+		}
+		if (json.button[i].sub_button) {
+			for (var j = 0; j < json.button[i].sub_button.length; j++) {
+				if (json.button[i].sub_button[j].id == tag_id) {
+					if(json.button[i].sub_button[j].type == "view"){
+						$("#info_msg").html("订阅者点击该子菜单会跳转至以下链接：");
+						$("#info_div").empty()
+							.append("<a target='_break' href=''></a>")
+							.children("a").attr("href",json.button[i].sub_button[j].url)
+							.html(json.button[i].sub_button[j].url);
+					} else if(json.button[i].sub_button[j].type == "click"){
+						$("#info_msg").html("订阅者点击该子菜单会推送以下内容：");
+						$("#info_div").html(json.button[i].sub_button[j].message.msg);
+					}
+					break;
+				}
+			}
+		}
+	}
 }

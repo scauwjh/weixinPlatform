@@ -1,0 +1,113 @@
+package cn.edu.scau.tvprotal.servlet.???SUBPACK;
+
+/* io */
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.OutputStream;
+/* net&servlet */
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.WebServlet;
+/* galin-FX */
+import cn.edu.scau.tvprotal.dao.DaoUtil;
+import cn.edu.scau.tvprotal.servlet.HttpUtil;
+import cn.edu.scau.tvprotal.servlet.MissingParameterException;
+/* json */
+import com.alibaba.fastjson.*;
+/* log */
+import org.apache.log4j.Logger;
+
+/**
+ * ???DESCRIPTION
+ * <br />
+ * <pre style="font-size:12px">
+
+   <strong>请求</strong>
+   GET/POST /cgi/???URL
+
+   <strong>参数</strong>
+
+   <strong>响应</strong>
+   application/json 对象:
+
+   <strong>例外</strong>
+
+   <strong>样例</strong>暂无
+ * </pre>
+ *
+ */
+@WebServlet(
+    name="???SERVLETNAME",
+    urlPatterns={"/cgi/???SERVEURL"}
+)
+public class ???CLASSNAME extends HttpServlet
+{
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException
+    {
+        doPost();
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException
+    {
+        // Encoding Configuration
+        // encode of req effects post method only
+        req.setCharacterEncoding("utf-8");
+        resp.setCharacterEncoding("utf-8");
+
+        // Dequote if pend to use session
+        HttpSession session = req.getSession();
+
+	// Dequote if pend to write binary
+        //resp.setContentType("???MIME");
+        //OutputStream out = resp.getOutputStream();
+
+        // Dequote if pend to write chars
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+
+        // output buffer prepare
+        JSONObject json = new JSONObject();
+
+        try
+        {
+            // Fetch parameters need no DB-access
+            // throw NullPointerException if required pararmeter is missing.
+
+            DaoUtil.begin();
+
+            // Fetch variables do need DB-access
+
+            // Business logic
+
+            DaoUtil.commit();
+
+            // Compose output
+        }
+        catch (MissingParameterException ex)
+        {
+            ex.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            Logger.getLogger("tvprotal.???SUBLOGGER")
+                .error("???ServeURL failed:", ex);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+        finally
+        {
+            out.println(json.toJSONString());
+            DaoUtil.close();
+        }
+
+        return;
+    }
+}

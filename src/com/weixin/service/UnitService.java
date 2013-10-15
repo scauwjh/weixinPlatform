@@ -17,6 +17,11 @@ public class UnitService {
 	
 	private UnitDaoImpl unitDao = UnitDaoImpl.getInstance();
 	
+	/**
+	 * get
+	 * @param unitID
+	 * @return
+	 */
 	public JSONObject get(Integer unitID){
 		try{
 			TB_Unit unit = unitDao.findByUnitID(unitID);
@@ -26,18 +31,18 @@ public class UnitService {
 //				return null;
 //			}
 			JSONObject json = new JSONObject();
-			json.element("unitID", unit.getUnitID());
-			json.element("unitName", unit.getUnitName());
-			json.element("appid", unit.getAppid());
-			json.element("secret", unit.getSecret());
-			json.element("introduction", unit.getIntroduction());
-			json.element("autoReply", unit.getAutoReply());
-			json.element("score", unit.getScore());
-			json.element("term", unit.getTerm());
-			json.element("welcomePage", unit.getWelcomePage());
-			json.element("menu", unit.getMenu());
-			json.element("updateTime", unit.getUpdateTime().toString());
-			json.element("createTime", unit.getCreateTime().toString());
+			json.put("unitID", unit.getUnitID());
+			json.put("unitName", unit.getUnitName());
+			json.put("appid", unit.getAppid());
+			json.put("secret", unit.getSecret());
+			json.put("introduction", unit.getIntroduction());
+			json.put("autoReply", unit.getAutoReply());
+			json.put("score", unit.getScore());
+			json.put("term", unit.getTerm());
+			json.put("welcomePage", unit.getWelcomePage());
+			json.put("menu", unit.getMenu());
+			json.put("updateTime", unit.getUpdateTime().toString());
+			json.put("createTime", unit.getCreateTime().toString());
 			return json;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -45,6 +50,11 @@ public class UnitService {
 		}
 	}
 	
+	/**
+	 * saveOrUpdate
+	 * @param data
+	 * @return
+	 */
 	public boolean saveOrUpdate(JSONObject data){
 		try{
 			Integer unitID = (Integer)data.get("unitID");
@@ -71,10 +81,51 @@ public class UnitService {
 		}
 	}
 	
+	/**
+	 * 更新自动回复
+	 * @param unitID
+	 * @param autoReply
+	 * @return boolean
+	 */
 	public boolean updateAutoReply(Integer unitID, String autoReply){
 		try{
 			TB_Unit unit = unitDao.findByUnitID(unitID);
 			unit.setAutoReply(autoReply);
+			unitDao.saveOrUpdate(unit);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * 获取积分
+	 * @param unitID
+	 * @return json含两个节点：score和term
+	 */
+	public JSONObject getIntegral(Integer unitID){
+		JSONObject json = get(unitID);
+		if(json!=null){
+			JSONObject ret = new JSONObject();
+			ret.put("score", json.get("score"));
+			ret.put("term", json.get("term"));
+			return ret;
+		}
+		return null;
+	}
+	
+	/**
+	 * 更新积分
+	 * @param json json含两个节点：score和term
+	 * @param unitID
+	 * @return
+	 */
+	public boolean updateIntegral(JSONObject json,Integer unitID){
+		try{
+			TB_Unit unit = unitDao.findByUnitID(unitID);
+			unit.setScore((Integer)json.get("score"));
+			unit.setTerm((Integer)json.get("term"));
 			unitDao.saveOrUpdate(unit);
 			return true;
 		}catch(Exception e){

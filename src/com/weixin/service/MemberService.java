@@ -53,20 +53,20 @@ public class MemberService {
 		for(int i=0;i<member.size();i++){
 			JSONObject json = new JSONObject();
 			TB_Member tmpTB = member.get(i);
-			json.element("coupon",tmpTB.getCoupon());
-			json.element("createTime", tmpTB.getCreateTime().toString());
-			json.element("ID", tmpTB.getID());
-			json.element("memberID", tmpTB.getMemberID());
-			json.element("openID", tmpTB.getOpenID());
-			json.element("score", tmpTB.getScore());
-			json.element("telephone", tmpTB.getTelephone());
-			json.element("term", tmpTB.getTerm());
-			json.element("unitID", tmpTB.getUnit().getUnitID());
-			//json.element("unitName", tmpTB.getUnit().getUnitName());
+			json.put("coupon",tmpTB.getCoupon());
+			json.put("createTime", tmpTB.getCreateTime().toString());
+			json.put("ID", tmpTB.getID());
+			json.put("memberID", tmpTB.getMemberID());
+			json.put("openID", tmpTB.getOpenID());
+			json.put("score", tmpTB.getScore());
+			json.put("telephone", tmpTB.getTelephone());
+			json.put("term", tmpTB.getTerm());
+			json.put("unitID", tmpTB.getUnit().getUnitID());
+			//json.put("unitName", tmpTB.getUnit().getUnitName());
 			array.add(json);
 		}
 		JSONObject print = new JSONObject();
-		print.element("member", array);
+		print.put("member", array);
 		return print;
 	}
 }

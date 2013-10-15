@@ -30,16 +30,16 @@ public class SourcesService {
 			for(int i=0;i<list.size();i++){
 				JSONObject json = new JSONObject();
 				TB_Sources message = list.get(i);
-				json.element("ID", message.getID());
-				json.element("message", message.getPicMessage());
-				json.element("unitID", message.getUnit().getUnitID());
-				json.element("updateTime", message.getUpdateTime().toString());
-				array.element(json);
+				json.put("ID", message.getID());
+				json.put("message", message.getPicMessage());
+				json.put("unitID", message.getUnit().getUnitID());
+				json.put("updateTime", message.getUpdateTime().toString());
+				array.add(json);
 				num++;
 			}
 			JSONObject print = new JSONObject();
-			print.element("messageNum", num);
-			print.element("message", array);
+			print.put("messageNum", num);
+			print.put("message", array);
 			return print;
 		}catch(Exception e){
 			e.printStackTrace();
